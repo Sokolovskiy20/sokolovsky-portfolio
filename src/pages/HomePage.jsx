@@ -44,10 +44,10 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       : "Junior Web Designer & AI Developer";
 
   const locationText = lang === 'ru'
-    ? "БАЗИРУЕТСЯ В УКРАИНЕ • ONLINE WORLDWIDE"
+    ? "UKRAINE • WORLDWIDE"
     : lang === 'de'
-      ? "STANDORT UKRAINE • ONLINE WORLDWIDE"
-      : "BASED IN UKRAINE • ONLINE WORLDWIDE";
+      ? "UKRAINE • WORLDWIDE"
+      : "UKRAINE • WORLDWIDE";
 
   // Section 1: Home Badge (01 // ГЛАВНАЯ / HOME)
   const homeTag = lang === 'ru'
@@ -336,12 +336,12 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       : "04 // CONTACT";
 
   return (
-    <div className="relative min-h-screen bg-[#070707] text-[#ECECEC] select-none font-luxury-grotesque">
+    <div className="relative min-h-screen bg-[#070707] text-[#ECECEC] select-none font-luxury-grotesque overflow-x-hidden">
       
       {/* ========================================================================= */}
       {/* SCREEN 1: HERO SCREEN (01 // ГЛАВНАЯ / HOME) — SPRING CINEMATIC REVEAL    */}
       {/* ========================================================================= */}
-      <section id="hero" className="relative min-h-screen flex flex-col justify-between pt-28 pb-10 sm:pb-14 overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-14 overflow-hidden">
         
         {/* 0.0s: Revelation 21:11 3D Crystalline Jasper Background Atmosphere (Fade-in 1.3s) */}
         <motion.div
@@ -351,10 +351,10 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           className="absolute inset-0 z-0 overflow-hidden pointer-events-none flex items-center justify-center"
         >
           {/* Subtle Ambient Studio Halo */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] h-[550px] sm:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.16] via-white/[0.04] to-transparent rounded-full blur-3xl mix-blend-screen" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[700px] md:w-[1000px] h-[350px] sm:h-[550px] md:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.16] via-white/[0.04] to-transparent rounded-full blur-3xl mix-blend-screen" />
 
           {/* Real-Time Interactive 3D WebGL Crystalline Jasper Gem */}
-          <div className="w-full h-full max-w-[1400px] max-h-[900px] flex items-center justify-center">
+          <div className="w-full h-full max-w-[1400px] max-h-[900px] flex items-center justify-center scale-90 sm:scale-100">
             <ThreeDObject className="w-full h-full" />
           </div>
 
@@ -371,7 +371,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-[1800px] mx-auto px-6 sm:px-12 md:px-16 pt-4"
+          className="relative z-10 w-full max-w-[1800px] mx-auto px-5 sm:px-12 md:px-16 pt-2 sm:pt-4"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_6px_#E2D4B7]" />
@@ -392,18 +392,18 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
             mass: 1.1,
             delay: 0.3
           }}
-          className="relative z-10 w-full my-auto py-8 sm:py-14 border-y border-white/[0.08] bg-black/25 overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.95)]"
+          className="relative z-10 w-full my-auto py-6 sm:py-14 border-y border-white/[0.08] bg-black/25 overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.95)]"
         >
-          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-60 bg-gradient-to-r from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-60 bg-gradient-to-l from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-60 bg-gradient-to-r from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-60 bg-gradient-to-l from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
 
           <div className="animate-marquee flex items-center whitespace-nowrap">
             {[...Array(6)].map((_, idx) => (
-              <div key={idx} className="flex items-center gap-10 sm:gap-20 px-6 sm:px-12">
-                <span className="font-luxury-grotesque text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[135px] font-normal sm:font-medium tracking-[0.22em] sm:tracking-[0.26em] uppercase text-white hover:text-[#E2D4B7] transition-colors leading-none drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+              <div key={idx} className="flex items-center gap-6 sm:gap-14 md:gap-20 px-3 sm:px-8">
+                <span className="font-luxury-grotesque text-4xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[135px] font-medium tracking-[0.20em] sm:tracking-[0.26em] uppercase text-white hover:text-[#E2D4B7] transition-colors leading-none drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
                   ARTEM SOKOLOVSKY
                 </span>
-                <span className="text-2xl sm:text-4xl text-white/30 font-light">
+                <span className="text-xl sm:text-4xl text-white/30 font-light">
                   —
                 </span>
               </div>
@@ -411,29 +411,34 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           </div>
         </motion.div>
 
-        {/* 0.85s: Bottom Bar Badges */}
+        {/* 0.85s: Bottom Bar Badges (Mobile Ergonomic Dual Cards) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-[1800px] mx-auto px-6 sm:px-12 md:px-16 pt-6 sm:pt-10"
+          className="relative z-10 w-full max-w-[1800px] mx-auto px-5 sm:px-12 md:px-16 pt-4 sm:pt-10"
         >
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-end justify-between gap-3 sm:gap-6">
             
             {/* Bottom Left: Location Badge with Active Gold Dot */}
-            <div className="flex items-center gap-2 bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/[0.08] shadow-md">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E2D4B7] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E2D4B7] shadow-[0_0_8px_#E2D4B7]"></span>
-              </span>
-              <span className="font-nav text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/70 font-normal">
-                {locationText}
+            <div className="flex items-center justify-between sm:justify-start gap-2 bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-xl sm:rounded-full border border-white/[0.08] shadow-md">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E2D4B7] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E2D4B7] shadow-[0_0_8px_#E2D4B7]"></span>
+                </span>
+                <span className="font-nav text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-white/80 font-medium">
+                  {locationText}
+                </span>
+              </div>
+              <span className="text-[9px] font-mono text-[#E2D4B7] uppercase sm:hidden">
+                ACTIVE NOW
               </span>
             </div>
 
             {/* Bottom Right: Specialization Badge */}
-            <div className="flex items-center bg-black/50 backdrop-blur-md px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/[0.08] shadow-md">
-              <span className="font-luxury-grotesque text-xs sm:text-sm tracking-[0.14em] uppercase text-white/80 font-normal">
+            <div className="flex items-center justify-center sm:justify-start bg-black/60 backdrop-blur-md px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full border border-white/[0.08] shadow-md text-center">
+              <span className="font-luxury-grotesque text-xs sm:text-sm tracking-[0.12em] sm:tracking-[0.14em] uppercase text-white/90 font-normal">
                 {specializationText}
               </span>
             </div>
@@ -444,18 +449,18 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       </section>
 
       {/* ========================================================================= */}
-      {/* SCREEN 2: PROCESS (02 // ПРОЦЕСС / PROCESS / PROZESS) — STAGGERED CASCADE */}
+      {/* SCREEN 2: PROCESS (02 // ПРОЦЕСС / PROCESS / PROZESS)                     */}
       {/* ========================================================================= */}
-      <section id="process" className="relative w-full pt-28 sm:pt-40 md:pt-48 pb-24 sm:pb-36 px-6 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden">
+      <section id="process" className="relative w-full pt-20 sm:pt-40 md:pt-48 pb-20 sm:pb-36 px-5 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden">
         
         {/* Subtle Ambient Radial Lighting */}
-        <div className="absolute top-1/3 left-1/4 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-r from-white/[0.02] via-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-gradient-to-l from-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 left-1/4 -translate-y-1/2 w-[350px] sm:w-[700px] h-[350px] sm:h-[700px] bg-gradient-to-r from-white/[0.02] via-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-l from-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="w-full max-w-[1800px] mx-auto">
           
           {/* Section Category Tag */}
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-6 sm:mb-14">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_6px_#E2D4B7]" />
               <span className="font-nav text-[10px] sm:text-[11px] tracking-[0.24em] uppercase text-white/70 font-normal">
@@ -465,56 +470,56 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           </div>
 
           {/* Harmonious 2-Column Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-start">
             
             {/* Left Column: Heading, Main Narrative, Value Proposition */}
             <motion.div
-              initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{
                 type: "spring",
                 stiffness: 90,
                 damping: 30,
                 mass: 1.1
               }}
-              className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-8"
+              className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-6 sm:space-y-8"
             >
-              <div className="space-y-6">
-                <h2 className="font-luxury-grotesque text-3xl sm:text-5xl md:text-5xl lg:text-[48px] xl:text-[54px] font-light leading-[1.15] tracking-[-0.025em] text-white">
+              <div className="space-y-4 sm:space-y-6">
+                <h2 className="font-luxury-grotesque text-2xl sm:text-5xl md:text-5xl lg:text-[48px] xl:text-[54px] font-light leading-[1.2] tracking-[-0.02em] text-white">
                   {methodTitle}
                 </h2>
 
-                <p className="font-luxury-grotesque text-lg sm:text-xl md:text-[21px] text-white/85 font-light leading-[1.7] tracking-[-0.01em]">
+                <p className="font-luxury-grotesque text-base sm:text-xl md:text-[21px] text-white/80 font-light leading-[1.65] sm:leading-[1.7] tracking-[-0.01em]">
                   {methodText}
                 </p>
               </div>
 
               {/* Status Badge */}
-              <div className="pt-2">
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] shadow-md">
-                  <span className="relative flex h-1.5 w-1.5">
+              <div className="pt-1">
+                <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-xl sm:rounded-full bg-white/[0.03] border border-white/[0.08] shadow-md">
+                  <span className="relative flex h-1.5 w-1.5 shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E2D4B7] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E2D4B7] shadow-[0_0_8px_#E2D4B7]"></span>
                   </span>
-                  <span className="font-mono text-xs sm:text-sm text-white/80 tracking-wider uppercase font-medium">
+                  <span className="font-mono text-[11px] sm:text-sm text-white/80 tracking-wider uppercase font-medium">
                     Full-Cycle · Design to Production · 60+ FPS
                   </span>
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Column: 3 Staggered Bento Cards (Delay 0.0s, 0.1s, 0.2s with Heavy Spring) */}
-            <div className="lg:col-span-6 xl:col-span-6 space-y-5 lg:pl-6 xl:pl-10 lg:border-l border-white/[0.06]">
+            {/* Right Column: 3 Staggered Bento Cards */}
+            <div className="lg:col-span-6 xl:col-span-6 space-y-4 sm:space-y-5 lg:pl-6 xl:pl-10 lg:border-l border-white/[0.06]">
               
               {stackGroups.map((group, idx) => {
                 const CategoryIcon = group.icon;
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
+                    initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
                     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    viewport={{ once: true, margin: "-40px" }}
                     transition={{
                       type: "spring",
                       stiffness: 100,
@@ -522,54 +527,54 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
                       delay: idx * 0.1,
                       mass: 1.0
                     }}
-                    className="group p-6 sm:p-7 rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.06] hover:border-white/[0.14] transition-all duration-300 shadow-lg hover:shadow-2xl"
+                    className="group p-5 sm:p-7 rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.06] hover:border-white/[0.14] transition-all duration-300 shadow-lg hover:shadow-2xl"
                   >
                     {/* Category Top Header */}
-                    <div className="flex items-center justify-between gap-4 pb-4 mb-5 border-b border-white/[0.06]">
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#E2D4B7] group-hover:scale-105 transition-transform">
-                          <CategoryIcon className="w-4.5 h-4.5" />
+                    <div className="flex items-center justify-between gap-4 pb-3.5 sm:pb-4 mb-4 sm:mb-5 border-b border-white/[0.06]">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#E2D4B7] group-hover:scale-105 transition-transform shrink-0">
+                          <CategoryIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                         </div>
-                        <h3 className="font-nav text-sm sm:text-[15px] tracking-[0.20em] uppercase text-white font-medium">
+                        <h3 className="font-nav text-xs sm:text-[15px] tracking-[0.18em] sm:tracking-[0.20em] uppercase text-white font-medium">
                           {group.category}
                         </h3>
                       </div>
-                      <span className="font-mono text-xs text-[#E2D4B7]/70 tracking-wider">
+                      <span className="font-mono text-[11px] sm:text-xs text-[#E2D4B7]/70 tracking-wider shrink-0">
                         {group.num} // 03
                       </span>
                     </div>
 
-                    {/* Tools List with Exact Two-Line Formatting */}
-                    <div className="space-y-5">
+                    {/* Tools List */}
+                    <div className="space-y-4 sm:space-y-5">
                       {group.tools.map((tool, tIdx) => {
                         const ToolIcon = tool.icon;
                         return (
                           <div 
                             key={tIdx} 
                             className={`group/tool ${
-                              tIdx > 0 ? 'pt-4 border-t border-white/[0.04]' : ''
+                              tIdx > 0 ? 'pt-3.5 sm:pt-4 border-t border-white/[0.04]' : ''
                             }`}
                           >
                             {/* Tool Header Row */}
-                            <div className="flex items-center justify-between gap-3 mb-2">
-                              <div className="flex items-center gap-3">
-                                <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 group-hover/tool:border-[#E2D4B7]/40 group-hover/tool:bg-white/[0.07] transition-all shadow-sm">
-                                  <ToolIcon className="w-4 h-4" />
+                            <div className="flex items-center justify-between gap-2 mb-1.5">
+                              <div className="flex items-center gap-2.5">
+                                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 group-hover/tool:border-[#E2D4B7]/40 group-hover/tool:bg-white/[0.07] transition-all shadow-sm">
+                                  <ToolIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 </div>
-                                <span className="font-mono text-sm sm:text-[15px] text-white font-semibold tracking-wide">
+                                <span className="font-mono text-xs sm:text-[15px] text-white font-semibold tracking-wide">
                                   {tool.name}
                                 </span>
                               </div>
 
-                              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase bg-white/[0.03] border border-white/[0.06] text-white/50">
+                              <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-mono tracking-wider uppercase bg-white/[0.03] border border-white/[0.06] text-white/50">
                                 {tool.tag}
                               </span>
                             </div>
 
                             {/* 2-Line Tool Description */}
-                            <div className="font-luxury-grotesque text-sm sm:text-[15px] text-white/75 font-light leading-relaxed pl-10 space-y-0.5">
+                            <div className="font-luxury-grotesque text-xs sm:text-[15px] text-white/70 font-light leading-relaxed pl-8 sm:pl-10 space-y-0.5">
                               <span className="block">{tool.line1}</span>
-                              <span className="block text-white/60">{tool.line2}</span>
+                              <span className="block text-white/55">{tool.line2}</span>
                             </div>
                           </div>
                         );
@@ -591,17 +596,17 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       {/* ========================================================================= */}
       {/* SCREEN 3: CASES (03 // КЕЙСЫ / CASES)                                     */}
       {/* ========================================================================= */}
-      <section id="projects" className="relative w-full pt-16 pb-28 sm:pb-36 px-6 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden">
+      <section id="projects" className="relative w-full pt-12 sm:pt-16 pb-20 sm:pb-36 px-5 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden">
         
         {/* Subtle Ambient Studio Glow */}
-        <div className="absolute top-1/4 right-1/4 w-[800px] h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 left-1/4 w-[700px] h-[700px] bg-gradient-to-t from-white/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 right-1/4 w-[350px] sm:w-[800px] h-[350px] sm:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 left-1/4 w-[300px] sm:w-[700px] h-[300px] sm:h-[700px] bg-gradient-to-t from-white/[0.015] to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-[1800px] mx-auto">
           
           {/* Section Header with "Кейсы" Title */}
           <motion.div
-            initial={{ opacity: 0, y: 35 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
@@ -609,11 +614,11 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
               stiffness: 90,
               damping: 30
             }}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 sm:mb-24"
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mb-10 sm:mb-24"
           >
             <div>
               {/* Category Badge matching Nav */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm mb-4 sm:mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_6px_#E2D4B7]" />
                 <span className="font-nav text-[10px] sm:text-[11px] tracking-[0.24em] uppercase text-white/60 font-normal">
                   {casesTag}
@@ -621,17 +626,17 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
               </div>
 
               {/* Title: КЕЙСЫ */}
-              <h3 className="font-luxury-grotesque text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-white">
+              <h3 className="font-luxury-grotesque text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-[-0.02em] text-white">
                 {casesHeading}
               </h3>
             </div>
 
             {/* Subtext */}
             <div className="max-w-md lg:border-l border-white/[0.08] lg:pl-8">
-              <span className="font-mono text-[10px] text-[#E2D4B7] uppercase tracking-[0.24em] block mb-2 font-medium">
+              <span className="font-mono text-[10px] text-[#E2D4B7] uppercase tracking-[0.24em] block mb-1.5 font-medium">
                 FULL-BLEED CINEMATIC VIEW
               </span>
-              <p className="font-luxury-grotesque text-sm sm:text-base text-white/60 font-light leading-relaxed">
+              <p className="font-luxury-grotesque text-xs sm:text-base text-white/60 font-light leading-relaxed">
                 {projectsSubheading}
               </p>
             </div>
@@ -647,7 +652,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
               number="01"
               title="AURA"
               subtitle="SMART LIVING // 2026"
-              categoryBadge="01 // SMART LIVING • AI AUTOMATION"
+              categoryBadge="01 // SMART LIVING • AI"
               year="2026"
               description={projectDescriptions.aura}
               imageSrc="/assets/aura/aura_cinematic_hero.jpg"
@@ -665,7 +670,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
               number="02"
               title="МАИРА"
               subtitle="ECO-SANCTUARY // 2025"
-              categoryBadge="02 // ECO-LUXURY EXPEDITION"
+              categoryBadge="02 // ECO-EXPEDITION"
               year="2025"
               description={projectDescriptions.amazonia}
               imageSrc="/assets/amazonia/maira_cinematic_hero.jpg"
@@ -683,7 +688,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
               number="03"
               title="SYMMETRY Dental"
               subtitle="AESTHETIC DENTISTRY // 2026"
-              categoryBadge="03 // HAUTE AESTHETIC MEDICINE"
+              categoryBadge="03 // HAUTE MEDICINE"
               year="2026"
               description={projectDescriptions.symmetry}
               imageSrc="/assets/symmetry/symmetry_cinematic_hero.jpg"
@@ -701,10 +706,10 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       {/* ========================================================================= */}
       {/* SCREEN 4: CONTACT (04 // КОНТАКТЫ / CONTACT / KONTAKT)                    */}
       {/* ========================================================================= */}
-      <section id="contact" className="relative w-full pt-32 sm:pt-48 pb-14 sm:pb-20 px-6 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden flex flex-col justify-between">
+      <section id="contact" className="relative w-full pt-20 sm:pt-48 pb-10 sm:pb-20 px-5 sm:px-12 md:px-16 bg-[#070707] border-t border-white/[0.06] overflow-hidden flex flex-col justify-between">
         
         {/* Subtle Ambient Studio Halo in Center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[700px] bg-gradient-to-t from-[#E2D4B7]/[0.03] via-white/[0.01] to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[1200px] h-[350px] sm:h-[700px] bg-gradient-to-t from-[#E2D4B7]/[0.03] via-white/[0.01] to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-[1800px] mx-auto my-auto">
           
@@ -714,7 +719,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-12 sm:mb-20"
+            className="mb-8 sm:mb-20"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_6px_#E2D4B7]" />
@@ -725,11 +730,11 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           </motion.div>
 
           {/* OVERSIZED TYPOGRAPHIC LINKS CONTAINER */}
-          <div className="space-y-8 sm:space-y-14">
+          <div className="space-y-6 sm:space-y-14">
             
-            {/* ROW 1: OVERSIZED EMAIL LINK */}
+            {/* ROW 1: OVERSIZED EMAIL LINK (Mobile Responsive Sizing) */}
             <motion.div
-              initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
               transition={{
@@ -745,33 +750,33 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
               <div
                 onClick={handleCopyEmail}
-                className="relative flex flex-col xl:flex-row xl:items-baseline justify-between gap-4 py-4 sm:py-6 border-b border-white/[0.10] group-hover:border-[#E2D4B7]/60 transition-colors duration-500 cursor-pointer"
+                className="relative flex flex-col xl:flex-row xl:items-baseline justify-between gap-3 sm:gap-4 py-4 sm:py-6 border-b border-white/[0.10] group-hover:border-[#E2D4B7]/60 transition-colors duration-500 cursor-pointer active:scale-[0.99]"
               >
-                <div className="flex items-center gap-4 sm:gap-8 min-w-0">
-                  <span className="font-mono text-xs sm:text-sm text-[#E2D4B7] tracking-widest shrink-0 font-medium">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 min-w-0">
+                  <span className="font-mono text-[10px] sm:text-sm text-[#E2D4B7] tracking-widest shrink-0 font-medium">
                     01 // EMAIL
                   </span>
 
-                  {/* Gigantic Grotesque Email with Outline Hover Effect */}
-                  <h2 className="font-luxury-grotesque text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[86px] 2xl:text-[96px] font-normal tracking-[0.04em] uppercase text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:1.5px_#E2D4B7] transition-all duration-500 leading-none truncate">
+                  {/* Fluid Email text */}
+                  <h2 className="font-luxury-grotesque text-xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[86px] 2xl:text-[96px] font-normal tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:1.5px_#E2D4B7] transition-all duration-500 leading-tight truncate">
                     SOKOLOVSKY202002@GMAIL.COM
                   </h2>
                 </div>
 
                 {/* Floating Arrow & Copy Badge */}
-                <div className="flex items-center gap-4 shrink-0 xl:self-center pl-8 xl:pl-0">
+                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 xl:self-center pt-1 sm:pt-0">
                   {copiedEmail ? (
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E2D4B7] text-black font-nav text-xs tracking-wider uppercase font-bold animate-fade-in shadow-lg">
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#E2D4B7] text-black font-nav text-[11px] sm:text-xs tracking-wider uppercase font-bold animate-fade-in shadow-lg">
                       <Check className="w-3.5 h-3.5" />
                       <span>{lang === 'ru' ? "Скопировано!" : lang === 'de' ? "Kopiert!" : "Copied!"}</span>
                     </span>
                   ) : (
-                    <div className="flex items-center gap-3 text-white/40 group-hover:text-[#E2D4B7] transition-colors font-mono text-xs tracking-wider uppercase">
-                      <span className="hidden sm:inline opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        {lang === 'ru' ? "Нажмите, чтобы скопировать" : "Click to copy"}
+                    <div className="flex items-center justify-between w-full sm:w-auto gap-3 text-white/40 group-hover:text-[#E2D4B7] transition-colors font-mono text-[11px] sm:text-xs tracking-wider uppercase">
+                      <span className="text-white/50 text-[10px] sm:text-xs">
+                        {lang === 'ru' ? "Нажмите для копирования" : "Tap to copy"}
                       </span>
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/[0.03] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.08] group-hover:border-[#E2D4B7] flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">
-                        <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/[0.03] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.08] group-hover:border-[#E2D4B7] flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </div>
                     </div>
                   )}
@@ -783,7 +788,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
             {/* ROW 2: OVERSIZED TELEGRAM LINK */}
             <motion.div
-              initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true }}
               transition={{
@@ -800,33 +805,33 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
               <div
                 onClick={handleCopyTg}
-                className="relative flex flex-col xl:flex-row xl:items-baseline justify-between gap-4 py-4 sm:py-6 border-b border-white/[0.10] group-hover:border-[#E2D4B7]/60 transition-colors duration-500 cursor-pointer"
+                className="relative flex flex-col xl:flex-row xl:items-baseline justify-between gap-3 sm:gap-4 py-4 sm:py-6 border-b border-white/[0.10] group-hover:border-[#E2D4B7]/60 transition-colors duration-500 cursor-pointer active:scale-[0.99]"
               >
-                <div className="flex items-center gap-4 sm:gap-8 min-w-0">
-                  <span className="font-mono text-xs sm:text-sm text-[#E2D4B7] tracking-widest shrink-0 font-medium">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 min-w-0">
+                  <span className="font-mono text-[10px] sm:text-sm text-[#E2D4B7] tracking-widest shrink-0 font-medium">
                     02 // TELEGRAM
                   </span>
 
-                  {/* Gigantic Grotesque Telegram with Outline Hover Effect */}
-                  <h2 className="font-luxury-grotesque text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[86px] 2xl:text-[96px] font-normal tracking-[0.04em] uppercase text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:1.5px_#E2D4B7] transition-all duration-500 leading-none truncate">
+                  {/* Fluid Telegram text */}
+                  <h2 className="font-luxury-grotesque text-2xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[86px] 2xl:text-[96px] font-normal tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:1.5px_#E2D4B7] transition-all duration-500 leading-tight truncate">
                     @SOKOLOVSKY202002
                   </h2>
                 </div>
 
                 {/* Floating Arrow & Copy Badge */}
-                <div className="flex items-center gap-4 shrink-0 xl:self-center pl-8 xl:pl-0">
+                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 xl:self-center pt-1 sm:pt-0">
                   {copiedTg ? (
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E2D4B7] text-black font-nav text-xs tracking-wider uppercase font-bold animate-fade-in shadow-lg">
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#E2D4B7] text-black font-nav text-[11px] sm:text-xs tracking-wider uppercase font-bold animate-fade-in shadow-lg">
                       <Check className="w-3.5 h-3.5" />
                       <span>{lang === 'ru' ? "Скопировано!" : lang === 'de' ? "Kopiert!" : "Copied!"}</span>
                     </span>
                   ) : (
-                    <div className="flex items-center gap-3 text-white/40 group-hover:text-[#E2D4B7] transition-colors font-mono text-xs tracking-wider uppercase">
-                      <span className="hidden sm:inline opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        {lang === 'ru' ? "Нажмите, чтобы скопировать" : "Click to copy"}
+                    <div className="flex items-center justify-between w-full sm:w-auto gap-3 text-white/40 group-hover:text-[#E2D4B7] transition-colors font-mono text-[11px] sm:text-xs tracking-wider uppercase">
+                      <span className="text-white/50 text-[10px] sm:text-xs">
+                        {lang === 'ru' ? "Нажмите для копирования" : "Tap to copy"}
                       </span>
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/[0.03] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.08] group-hover:border-[#E2D4B7] flex items-center justify-center transition-all duration-300 transform group-hover:scale-110">
-                        <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/[0.03] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.08] group-hover:border-[#E2D4B7] flex items-center justify-center transition-all duration-300 transform group-hover:scale-110 shrink-0">
+                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </div>
                     </div>
                   )}
@@ -843,8 +848,8 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
         {/* ========================================================================= */}
         {/* FOOTER (ПОДВАЛ): SINGLE-LINE MINIMALIST BOTTOM BAR                        */}
         {/* ========================================================================= */}
-        <div className="relative z-10 w-full max-w-[1800px] mx-auto mt-28 sm:mt-40 pt-8 sm:pt-10 border-t border-white/[0.08]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-white/50">
+        <div className="relative z-10 w-full max-w-[1800px] mx-auto mt-16 sm:mt-40 pt-6 sm:pt-10 border-t border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs font-mono text-white/50 text-center sm:text-left">
             
             {/* Left: Author Identity */}
             <div className="flex items-center gap-2">
@@ -856,12 +861,12 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
             {/* Center: Global Status */}
             <div className="tracking-wider uppercase text-white/40">
-              BASED IN UKRAINE • WORLDWIDE ONLINE
+              UKRAINE • WORLDWIDE ONLINE
             </div>
 
             {/* Right: Copyright */}
             <div className="text-white/40">
-              © 2026 Artem Sokolovsky. All rights reserved.
+              © 2026 Artem Sokolovsky
             </div>
 
           </div>

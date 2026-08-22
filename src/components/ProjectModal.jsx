@@ -3,15 +3,16 @@ import { translations } from '../translations';
 import { projectsData } from '../data/projectsData';
 import { X, ArrowUpRight, CheckCircle2, Sparkles, Layers, Image as ImageIcon, Cpu, ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function ProjectModal({ projectId, lang, onClose, onOpenContact }) {
+export default function ProjectModal({ projectId, lang = 'ru', onClose, onOpenContact }) {
   const [activeTab, setActiveTab] = useState('overview'); // 'overview' | 'gallery' | 'features'
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
 
   const project = projectsData.find(p => p.id === projectId);
   if (!project) return null;
 
-  const tWorks = translations[lang].works;
-  const projectInfo = translations[lang].projects[project.key];
+  const currentTranslations = translations[lang] || translations.ru;
+  const tWorks = currentTranslations.worksPage || {};
+  const projectInfo = currentTranslations.projects?.[project.key] || {};
 
   // Close on Escape key
   useEffect(() => {
@@ -45,9 +46,9 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
         {/* Modal Top Bar */}
         <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-white/10 bg-black/40 backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-[#CBB280]" />
+            <div className="w-3 h-3 rounded-full bg-[#E2D4B7]" />
             <span className="text-xs font-mono tracking-wider uppercase text-white/50">
-              {projectInfo.tag}
+              {projectInfo.tag || "Case Study"}
             </span>
           </div>
 
@@ -60,7 +61,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
                   activeTab === 'overview' ? 'bg-white text-[#070707] font-semibold' : 'text-white/60 hover:text-white'
                 }`}
               >
-                {tWorks.overviewTitle}
+                {tWorks.overviewTitle || "Overview"}
               </button>
               <button
                 onClick={() => setActiveTab('gallery')}
@@ -69,7 +70,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
                 }`}
               >
                 <ImageIcon className="w-3 h-3" />
-                <span>{tWorks.galleryTitle} ({project.gallery.length})</span>
+                <span>{tWorks.galleryTitle || "Gallery"} ({project.gallery?.length || 0})</span>
               </button>
             </div>
 
@@ -98,10 +99,10 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
             
             <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div>
-                <span className="text-xs font-mono text-[#CBB280] tracking-widest uppercase">
+                <span className="text-xs font-mono text-[#E2D4B7] tracking-widest uppercase">
                   {project.year} • Case Study
                 </span>
-                <h2 className="text-3xl sm:text-5xl font-serif-luxury text-white mt-1">
+                <h2 className="text-3xl sm:text-5xl font-luxury-grotesque text-white mt-1">
                   {projectInfo.title}
                 </h2>
                 <p className="text-sm font-mono text-white/70 mt-1">
@@ -111,10 +112,10 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
 
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => { onClose(); onOpenContact(); }}
+                  onClick={() => { onClose(); if (onOpenContact) onOpenContact(); }}
                   className="px-5 py-2.5 rounded-full bg-white text-[#070707] font-semibold text-xs uppercase tracking-widest hover:bg-[#E2D4B7] transition-colors shadow-lg flex items-center gap-1.5"
                 >
-                  <span>Inquire Similar Project</span>
+                  <span>Explore Case</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -125,7 +126,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
             <div>
               <span className="text-[11px] font-mono text-white/40 uppercase block mb-1">
-                {tWorks.roleLabel}
+                {tWorks.roleLabel || "Role & Scope"}
               </span>
               <span className="text-xs sm:text-sm text-white/90 font-medium">
                 {projectInfo.roles}
@@ -133,7 +134,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
             </div>
             <div>
               <span className="text-[11px] font-mono text-white/40 uppercase block mb-1">
-                {tWorks.yearLabel}
+                {tWorks.yearLabel || "Year"}
               </span>
               <span className="text-xs sm:text-sm text-white/90 font-medium">
                 {projectInfo.year}
@@ -149,10 +150,10 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
             </div>
             <div>
               <span className="text-[11px] font-mono text-white/40 uppercase block mb-1">
-                {tWorks.techLabel}
+                {tWorks.techLabel || "Core Stack"}
               </span>
               <span className="text-xs sm:text-sm text-white/90 font-medium font-mono">
-                {projectInfo.stack.slice(0, 3).join(', ')}
+                {projectInfo.stack?.slice(0, 3).join(', ')}
               </span>
             </div>
           </div>
@@ -160,21 +161,21 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
           {/* Detailed Narrative */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-7 space-y-6">
-              <h3 className="text-2xl font-serif-luxury text-white">
-                {tWorks.overviewTitle}
+              <h3 className="text-2xl font-luxury-grotesque text-white">
+                {tWorks.overviewTitle || "Overview"}
               </h3>
               <p className="text-base text-white/80 font-light leading-relaxed">
                 {projectInfo.fullDesc}
               </p>
 
               <div className="pt-4">
-                <h4 className="text-sm font-mono uppercase tracking-widest text-[#CBB280] mb-4">
+                <h4 className="text-sm font-mono uppercase tracking-widest text-[#E2D4B7] mb-4">
                   Key Deliverables & Innovations
                 </h4>
                 <ul className="space-y-3">
-                  {projectInfo.features.map((feature, idx) => (
+                  {projectInfo.features?.map((feature, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-white/75 font-light">
-                      <CheckCircle2 className="w-4 h-4 text-[#CBB280] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#E2D4B7] shrink-0 mt-0.5" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -184,7 +185,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
 
             <div className="md:col-span-5 space-y-6">
               <div className="p-6 rounded-3xl glass-panel border border-white/10 space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#CBB280]">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#E2D4B7]">
                   <Cpu className="w-4 h-4" />
                   <span>Technical & AI Architecture</span>
                 </div>
@@ -192,7 +193,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
                   Crafted with performance budgets, sub-second TTFB, micro-animations rendered at 60 FPS, and modular design tokens that guarantee longevity.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-2">
-                  {projectInfo.stack.map((s, i) => (
+                  {projectInfo.stack?.map((s, i) => (
                     <span key={i} className="px-3 py-1 rounded-full text-xs font-mono bg-white/5 border border-white/10 text-white/90">
                       {s}
                     </span>
@@ -203,39 +204,41 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
           </div>
 
           {/* Full High-Resolution Gallery */}
-          <div className="pt-6 border-t border-white/10">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-serif-luxury text-white flex items-center gap-3">
-                <ImageIcon className="w-5 h-5 text-[#CBB280]" />
-                <span>{tWorks.galleryTitle}</span>
-              </h3>
-              <span className="text-xs font-mono text-white/40">
-                Click any image to enlarge
-              </span>
-            </div>
+          {project.gallery && project.gallery.length > 0 && (
+            <div className="pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-luxury-grotesque text-white flex items-center gap-3">
+                  <ImageIcon className="w-5 h-5 text-[#E2D4B7]" />
+                  <span>{tWorks.galleryTitle || "Visual Artifacts"}</span>
+                </h3>
+                <span className="text-xs font-mono text-white/40">
+                  Click any image to enlarge
+                </span>
+              </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {project.gallery.map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setSelectedPhotoIndex(idx)}
-                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-black border border-white/10 hover:border-[#CBB280] transition-all duration-300 cursor-pointer shadow-lg"
-                >
-                  <img
-                    src={item.url}
-                    alt={item.caption}
-                    className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 brightness-90 group-hover:brightness-100"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="text-xs font-mono text-white/90">
-                      {item.caption}
-                    </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {project.gallery.map((item, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setSelectedPhotoIndex(idx)}
+                    className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-black border border-white/10 hover:border-[#E2D4B7] transition-all duration-300 cursor-pointer shadow-lg"
+                  >
+                    <img
+                      src={item.url}
+                      alt={item.caption}
+                      className="w-full h-full object-cover group-hover:scale-106 transition-transform duration-500 brightness-90 group-hover:brightness-100"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <span className="text-xs font-mono text-white/90">
+                        {item.caption}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
         </div>
 
@@ -253,7 +256,7 @@ export default function ProjectModal({ projectId, lang, onClose, onOpenContact }
       </div>
 
       {/* Lightbox Modal for Individual Image */}
-      {selectedPhotoIndex !== null && (
+      {selectedPhotoIndex !== null && project.gallery?.[selectedPhotoIndex] && (
         <div className="fixed inset-0 z-60 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4">
           <button
             onClick={() => setSelectedPhotoIndex(null)}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Background Obsidian Shield -->
+  <rect width="128" height="128" rx="36" fill="#070707" />
+  <rect x="3" y="3" width="122" height="122" rx="33" stroke="#E2D4B7" stroke-opacity="0.35" stroke-width="2"/>
+  
+  <!-- Subtle Inner Ambient Glow -->
+  <circle cx="64" cy="64" r="42" fill="#E2D4B7" fill-opacity="0.08" />
+
+  <!-- Crystalline Monogram 'S' / Faceted Architectural Emblem -->
+  <!-- Top Segment -->
+  <path d="M78 36H50C42.268 36 36 42.268 36 50C36 57.732 42.268 64 50 64H78C85.732 64 92 70.268 92 78C92 85.732 85.732 92 78 92H50" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Golden Facet Accent Diagonal Cut -->
+  <path d="M42 92L86 36" stroke="#E2D4B7" stroke-width="3" stroke-linecap="round" stroke-opacity="0.9" />
+  
+  <!-- Core Champagne Spark -->
+  <circle cx="64" cy="64" r="5" fill="#E2D4B7" />
+</svg>

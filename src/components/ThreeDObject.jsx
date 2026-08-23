@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 
 /**
- * 3D Dark Obsidian Jasper / Black Diamond Gemstone (Ultra-Optimized 60+ FPS Edition)
+ * 3D Dark Obsidian Jasper / Black Diamond Gemstone (Mobile-First + 60+ FPS Optimized)
  * Multifaceted Polyhedral Crystal sculpted in Deep Obsidian Glass, Smoked Amber Core & Platinum Edge Glints
  * 
- * Optimizations:
- * 1. IntersectionObserver: Automatically pauses WebGL render loop when scrolled out of view.
- * 2. Zero-layout-thrashing: Resize is debounced on window resize event, never inside 60fps loop.
- * 3. Capped DPR and balanced raymarching step count for butter-smooth 60+ FPS on all devices.
+ * Mobile & Desktop Fixes:
+ * 1. Native Touch Interaction: Smooth touch drag rotation on mobile (touchmove/touchstart/touchend).
+ * 2. Dynamic Aspect Framing: Automatic camera distance scaling for portrait phone screens (iPhone / Android) so the crystal is never cut off or distorted.
+ * 3. Auto-Gyroscopic Ambient Motion: Elegant continuous facet glinting when idle.
+ * 4. ResizeObserver & Context Resilience: Prevents 0-pixel canvas bugs on mobile orientation changes or app switching.
+ * 5. IntersectionObserver: Pauses WebGL render loop when scrolled offscreen.
  */
 export default function ThreeDObject({ className = "" }) {
   const canvasRef = useRef(null);
@@ -16,14 +18,17 @@ export default function ThreeDObject({ className = "" }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext('webgl', { 
+    let gl = canvas.getContext('webgl', { 
       alpha: true, 
-      antialias: false, // Internal anti-aliased shader + smooth normal filtering
+      antialias: false,
       powerPreference: 'high-performance',
       preserveDrawingBuffer: false
     });
 
-    if (!gl) return;
+    if (!gl) {
+      gl = canvas.getContext('experimental-webgl');
+      if (!gl) return;
+    }
 
     const vsSource = `
       attribute vec2 position;
@@ -55,20 +60,20 @@ export default function ThreeDObject({ className = "" }) {
       // Distance to the multifaceted precious crystal
       float getDist(vec3 p) {
         // Zero-gravity majestic floating hover
-        p.y += sin(u_time * 0.8) * 0.08;
+        p.y += sin(u_time * 0.8) * 0.07;
 
-        // Interactive mouse rotation + slow steady spin
-        p.yz *= rot(u_mouse.y * 0.65 + sin(u_time * 0.3) * 0.10);
+        // Interactive touch/mouse rotation + continuous organic luxury spin
+        p.yz *= rot(u_mouse.y * 0.70 + sin(u_time * 0.4) * 0.12);
         p.xz *= rot(u_mouse.x * 0.85 + u_time * 0.22);
 
-        float r = 1.45;
+        float r = 1.42;
         float d = length(p) - r;
 
         // Top table flat cut
-        d = max(d, p.y - 1.05);
+        d = max(d, p.y - 1.02);
 
         // Bottom culet point
-        d = max(d, -p.y - 1.25);
+        d = max(d, -p.y - 1.22);
 
         // Crown & Pavilion Facet Planes (Icosahedral & Octahedral crystal cuts)
         vec3 n1 = normalize(vec3(1.0, 1.0, 1.0));
@@ -76,25 +81,25 @@ export default function ThreeDObject({ className = "" }) {
         vec3 n3 = normalize(vec3(1.0, -1.0, 1.0));
         vec3 n4 = normalize(vec3(1.0, 1.0, -1.0));
 
-        d = max(d, abs(dot(p, n1)) - 1.12);
-        d = max(d, abs(dot(p, n2)) - 1.12);
-        d = max(d, abs(dot(p, n3)) - 1.12);
-        d = max(d, abs(dot(p, n4)) - 1.12);
+        d = max(d, abs(dot(p, n1)) - 1.10);
+        d = max(d, abs(dot(p, n2)) - 1.10);
+        d = max(d, abs(dot(p, n3)) - 1.10);
+        d = max(d, abs(dot(p, n4)) - 1.10);
 
         // Brilliant Star Facets
         vec3 n5 = normalize(vec3(0.0, 1.0, PHI));
         vec3 n6 = normalize(vec3(PHI, 0.0, 1.0));
         vec3 n7 = normalize(vec3(1.0, PHI, 0.0));
 
-        d = max(d, abs(dot(p, n5)) - 1.16);
-        d = max(d, abs(dot(p, n6)) - 1.16);
-        d = max(d, abs(dot(p, n7)) - 1.16);
+        d = max(d, abs(dot(p, n5)) - 1.14);
+        d = max(d, abs(dot(p, n6)) - 1.14);
+        d = max(d, abs(dot(p, n7)) - 1.14);
 
         // Secondary cross-bezel facets
         vec3 n8 = normalize(vec3(0.0, -1.0, PHI));
         vec3 n9 = normalize(vec3(-PHI, 0.0, 1.0));
-        d = max(d, abs(dot(p, n8)) - 1.16);
-        d = max(d, abs(dot(p, n9)) - 1.16);
+        d = max(d, abs(dot(p, n8)) - 1.14);
+        d = max(d, abs(dot(p, n9)) - 1.14);
 
         return d;
       }
@@ -124,8 +129,12 @@ export default function ThreeDObject({ className = "" }) {
       void main() {
         vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.x, u_resolution.y);
 
+        // Responsive camera distance: adjust on vertical portrait mobile screens
+        float isPortrait = step(u_resolution.x, u_resolution.y);
+        float camZ = mix(-3.7, -4.1, isPortrait);
+
         // Ray Origin & Direction
-        vec3 ro = vec3(0.0, 0.0, -3.8);
+        vec3 ro = vec3(0.0, 0.0, camZ);
         vec3 rd = normalize(vec3(uv, 1.35));
 
         float d = rayMarch(ro, rd);
@@ -247,22 +256,43 @@ export default function ThreeDObject({ className = "" }) {
     let isVisible = true;
     let animationFrameId = null;
 
+    // Desktop Mouse Move
     const handleMouseMove = (e) => {
       if (!isVisible) return;
       const rect = canvas.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      targetMouseX = x;
-      targetMouseY = y;
+      targetMouseX = Math.max(-1.5, Math.min(1.5, x));
+      targetMouseY = Math.max(-1.5, Math.min(1.5, y));
+    };
+
+    // Mobile Touch Move & Interaction
+    const handleTouchMove = (e) => {
+      if (!isVisible || !e.touches || e.touches.length === 0) return;
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+      const x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((touch.clientY - rect.top) / rect.height) * 2 - 1);
+      targetMouseX = Math.max(-1.5, Math.min(1.5, x));
+      targetMouseY = Math.max(-1.5, Math.min(1.5, y));
+    };
+
+    const handleTouchEnd = () => {
+      targetMouseX = 0;
+      targetMouseY = 0;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     let startTime = performance.now();
 
     const resize = () => {
       if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const width = Math.floor(canvas.clientWidth * dpr);
       const height = Math.floor(canvas.clientHeight * dpr);
 
@@ -274,6 +304,19 @@ export default function ThreeDObject({ className = "" }) {
     };
 
     window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(resize, 100);
+    }, { passive: true });
+
+    // ResizeObserver for zero-lag canvas container tracking
+    let resizeObserver = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        resize();
+      });
+      resizeObserver.observe(canvas);
+    }
+
     resize();
 
     const render = () => {
@@ -285,7 +328,7 @@ export default function ThreeDObject({ className = "" }) {
       const currentTime = (performance.now() - startTime) * 0.001;
 
       gl.useProgram(program);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform2f(uRes, canvas.width || 300, canvas.height || 300);
       gl.uniform1f(uTime, currentTime);
       gl.uniform2f(uMouse, mouseX, mouseY);
 
@@ -317,8 +360,11 @@ export default function ThreeDObject({ className = "" }) {
     animationFrameId = requestAnimationFrame(render);
 
     return () => {
+      if (resizeObserver) resizeObserver.disconnect();
       observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('resize', resize);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
@@ -330,7 +376,7 @@ export default function ThreeDObject({ className = "" }) {
   return (
     <canvas
       ref={canvasRef}
-      className={`w-full h-full pointer-events-none transform-gpu ${className}`}
+      className={`w-full h-full pointer-events-none transform-gpu touch-none select-none ${className}`}
     />
   );
 }

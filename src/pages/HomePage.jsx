@@ -351,10 +351,10 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
           className="absolute inset-0 z-0 overflow-hidden pointer-events-none flex items-center justify-center"
         >
           {/* Subtle Ambient Studio Halo */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[700px] md:w-[1000px] h-[350px] sm:h-[550px] md:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.16] via-white/[0.04] to-transparent rounded-full blur-3xl mix-blend-screen" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[700px] md:w-[1000px] h-[320px] sm:h-[550px] md:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.18] via-white/[0.04] to-transparent rounded-full blur-3xl mix-blend-screen" />
 
           {/* Real-Time Interactive 3D WebGL Crystalline Jasper Gem */}
-          <div className="w-full h-full max-w-[1400px] max-h-[900px] flex items-center justify-center scale-90 sm:scale-100">
+          <div className="w-full h-full max-w-[1400px] max-h-[900px] flex items-center justify-center">
             <ThreeDObject className="w-full h-full" />
           </div>
 

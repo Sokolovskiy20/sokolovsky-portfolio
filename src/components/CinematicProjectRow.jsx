@@ -49,19 +49,19 @@ export default function CinematicProjectRow({
   return (
     <motion.div
       ref={containerRef}
-      initial={{ opacity: 0, y: 35, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{
         type: "spring",
         stiffness: 90,
         damping: 30,
-        mass: 1.1
+        mass: 1.0
       }}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative w-full cursor-pointer py-5 sm:py-16 border-t border-white/[0.08] first:border-t-0"
+      className="group relative w-full cursor-pointer py-5 sm:py-16 border-t border-white/[0.08] first:border-t-0 transform-gpu"
     >
       {/* ========================================================================= */}
       {/* 📱 MOBILE VIEW: IMMERSIVE VISUAL PHOTO-CARD (< lg)                         */}

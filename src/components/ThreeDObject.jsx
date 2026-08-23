@@ -46,9 +46,9 @@ export default function ThreeDObject({ className = "" }) {
       uniform vec2 u_mouse;
       varying vec2 vUv;
 
-      #define MAX_STEPS 48
-      #define SURF_DIST 0.002
-      #define MAX_DIST 20.0
+      #define MAX_STEPS 32
+      #define SURF_DIST 0.003
+      #define MAX_DIST 18.0
 
       mat2 rot(float a) {
         float s = sin(a), c = cos(a);
@@ -292,7 +292,7 @@ export default function ThreeDObject({ className = "" }) {
 
     const resize = () => {
       if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.05);
       const width = Math.floor(canvas.clientWidth * dpr);
       const height = Math.floor(canvas.clientHeight * dpr);
 

@@ -383,8 +383,8 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
         {/* 0.3s: Center Running Name Track (Heavy Spring Physics: Stiffness 100, Damping 35, Offset 45px + Blur 10px) */}
         <motion.div
-          initial={{ opacity: 0, y: 45, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, y: 45 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
             type: "spring",
             stiffness: 100,
@@ -392,7 +392,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
             mass: 1.1,
             delay: 0.3
           }}
-          className="relative z-10 w-full my-auto py-6 sm:py-14 border-y border-white/[0.08] bg-black/25 overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.95)]"
+          className="relative z-10 w-full my-auto py-6 sm:py-14 border-y border-white/[0.08] bg-black/25 overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.95)] transform-gpu"
         >
           <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-60 bg-gradient-to-r from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-60 bg-gradient-to-l from-[#070707] via-[#070707]/90 to-transparent z-10 pointer-events-none" />
@@ -474,16 +474,16 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
             
             {/* Left Column: Heading, Main Narrative, Value Proposition */}
             <motion.div
-              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{
                 type: "spring",
                 stiffness: 90,
                 damping: 30,
-                mass: 1.1
+                mass: 1.0
               }}
-              className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-6 sm:space-y-8"
+              className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-6 sm:space-y-8 transform-gpu"
             >
               <div className="space-y-4 sm:space-y-6">
                 <h2 className="font-luxury-grotesque text-2xl sm:text-5xl md:text-5xl lg:text-[48px] xl:text-[54px] font-light leading-[1.2] tracking-[-0.02em] text-white">
@@ -517,17 +517,17 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
-                    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{
                       type: "spring",
                       stiffness: 100,
                       damping: 30,
-                      delay: idx * 0.1,
+                      delay: idx * 0.08,
                       mass: 1.0
                     }}
-                    className="group p-5 sm:p-7 rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.06] hover:border-white/[0.14] transition-all duration-300 shadow-lg hover:shadow-2xl"
+                    className="group p-5 sm:p-7 rounded-2xl bg-white/[0.02] hover:bg-white/[0.035] border border-white/[0.06] hover:border-white/[0.14] transition-all duration-300 shadow-lg hover:shadow-2xl transform-gpu"
                   >
                     {/* Category Top Header */}
                     <div className="flex items-center justify-between gap-4 pb-3.5 sm:pb-4 mb-4 sm:mb-5 border-b border-white/[0.06]">
@@ -734,15 +734,15 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
             
             {/* ROW 1: OVERSIZED EMAIL LINK (Mobile Responsive Sizing) */}
             <motion.div
-              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
                 type: "spring",
                 stiffness: 90,
                 damping: 30
               }}
-              className="relative group"
+              className="relative group transform-gpu"
             >
               
               {/* Studio Glow on Hover */}
@@ -788,16 +788,16 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
 
             {/* ROW 2: OVERSIZED TELEGRAM LINK */}
             <motion.div
-              initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
                 type: "spring",
                 stiffness: 90,
                 damping: 30,
-                delay: 0.1
+                delay: 0.08
               }}
-              className="relative group"
+              className="relative group transform-gpu"
             >
               
               {/* Studio Glow on Hover */}

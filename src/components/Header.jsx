@@ -73,7 +73,7 @@ export default function Header({ lang, setLang }) {
         transition={{ delay: 0.8, duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-12 md:px-16 transition-all duration-500 ${
           scrolled 
-            ? 'py-4 sm:py-6 bg-[#070707]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.8)]' 
+            ? 'py-4 sm:py-6 bg-[#070707]/90 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)]' 
             : 'py-5 sm:py-8 bg-gradient-to-b from-[#070707]/95 via-[#070707]/50 to-transparent'
         }`}
       >

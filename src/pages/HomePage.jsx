@@ -71,10 +71,10 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
       : "Premium UI/UX & Frontend Development";
 
   const methodText = lang === 'ru'
-    ? "Я веду проект от первой идеи до финального запуска. Сначала создаю выверенную визуальную эстетику и интерфейс в Figma, а затем полностью беру на себя frontend-разработку. Я трансформирую статический макет в живой, интерактивный сайт с чистым кодом и плавными анимациями. Вы получаете не просто красивый дизайн, а полностью готовый к работе цифровой продукт премиум-класса."
+    ? "Я веду проект от первой идеи до финального запуска. Сначала создаю выверенную визуальную эстетику и интерфейс в Figma, а затем полностью беру на себя frontend-разработку. Я трансформирую статический макет в живой, интерактивный сайт с чистым кодом и плавными анимациями. Вы получаете не просто красивый дизайн, а полностью готовый к работе цифровой\u00A0продукт\u00A0премиум-класса."
     : lang === 'de'
-      ? "Ich begleite Ihr Projekt von der ersten Idee bis zum finalen Launch. Zuerst entwickle ich eine präzise visuelle Ästhetik und das Interface in Figma und übernehme anschließend die vollständige Frontend-Entwicklung. Ich transformiere statische Entwürfe in lebendige, interaktive Websites mit sauberem Code und fließenden Animationen. Sie erhalten nicht nur ansprechendes Design, sondern ein voll funktionsfähiges digitales Premium-Produkt."
-      : "I lead projects from the initial concept to the final launch. First, I craft a refined visual aesthetic and intuitive interface in Figma, then take full ownership of frontend development. I transform static layouts into live, interactive web experiences with clean code and fluid motion. You receive not just exceptional design, but a fully deployed, high-performance digital product.";
+      ? "Ich begleite Ihr Projekt von der ersten Idee bis zum finalen Launch. Zuerst entwickle ich eine präzise visuelle Ästhetik und das Interface in Figma und übernehme anschließend die vollständige Frontend-Entwicklung. Ich transformiere statische Entwürfe in lebendige, interaktive Websites mit sauberem Code und fließenden Animationen. Sie erhalten nicht nur ansprechendes Design, sondern ein voll funktionsfähiges digitales\u00A0Premium-Produkt."
+      : "I lead projects from the initial concept to the final launch. First, I craft a refined visual aesthetic and intuitive interface in Figma, then take full ownership of frontend development. I transform static layouts into live, interactive web experiences with clean code and fluid motion. You receive not just exceptional design, but a fully deployed, high-performance\u00A0digital\u00A0product.";
 
   // 3 Stack Categories (Every tool has exactly 2 lines of description)
   const stackGroups = lang === 'ru' ? [
@@ -490,7 +490,7 @@ export default function HomePage({ lang, onNavigate, onSelectProject }) {
                   {methodTitle}
                 </h2>
 
-                <p className="font-luxury-grotesque text-base sm:text-xl md:text-[21px] text-white/80 font-light leading-[1.65] sm:leading-[1.7] tracking-[-0.01em]">
+                <p className="font-luxury-grotesque text-base sm:text-xl md:text-[21px] text-white/80 font-light leading-[1.65] sm:leading-[1.7] tracking-[-0.01em] [text-wrap:pretty]">
                   {methodText}
                 </p>
               </div>

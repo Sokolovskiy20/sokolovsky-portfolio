@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../translations";
 import { projectsData } from "../data/projectsData";
@@ -10,8 +9,7 @@ import {
   ChevronRight, 
   Copy, 
   Check, 
-  ExternalLink,
-  Maximize2
+  ExternalLink
 } from "lucide-react";
 
 /* Interactive Soft Tactile Paper Press Hero Component (Zero-Re-Render 60 FPS Edition) */
@@ -322,7 +320,6 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
 }
 
 export default function ProjectModal({ projectId, lang = "ua", onClose, onSelectProject, onOpenContact }) {
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null);
   const [copiedHex, setCopiedHex] = useState(null);
   const scrollContainerRef = useRef(null);
 
@@ -414,24 +411,12 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        if (selectedPhotoIndex !== null) {
-          setSelectedPhotoIndex(null);
-        } else {
-          onClose();
-        }
-      }
-      if (selectedPhotoIndex !== null && caseData.gallery) {
-        if (e.key === "ArrowRight") {
-          setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length);
-        }
-        if (e.key === "ArrowLeft") {
-          setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length);
-        }
+        onClose();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedPhotoIndex, onClose, caseData.gallery]);
+  }, [onClose]);
 
   useEffect(() => {
     const originalOverflow = window.getComputedStyle(document.body).overflow;
@@ -863,7 +848,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                   </span>
                 </div>
                 <span className={`text-xs font-mono ${themeStyles.accentText} hidden sm:block font-medium`}>
-                  Клікніть для 4K перегляду
+                  Екрани & архітектура
                 </span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-normal text-[#121A15] tracking-tight">
@@ -876,29 +861,25 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                 {caseData.gallery.map((item, idx) => (
                   <div
                     key={idx}
-                    onClick={() => setSelectedPhotoIndex(idx)}
-                    className="group relative aspect-[16/11] rounded-[28px] overflow-hidden bg-black/5 border border-black/[0.05] shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] hover:border-black/[0.15] transition-all duration-300 cursor-pointer transform-gpu"
+                    className="group relative aspect-[16/11] rounded-[28px] overflow-hidden bg-black/5 border border-black/[0.05] shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-black/[0.12] transition-all duration-300 transform-gpu"
                   >
                     <img
                       src={item.url}
                       alt={item.caption}
-                      className="w-full h-full object-cover group-hover:scale-[1.035] transition-transform duration-500 ease-out transform-gpu will-change-transform"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out transform-gpu will-change-transform"
                       loading="lazy"
                       decoding="async"
                     />
                     
-                    {/* Subtle Frosted Bottom Capsule on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 sm:p-5">
+                    {/* Editorial Bottom Capsule with Slice Caption on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 sm:p-5">
                       <div className="flex items-center gap-2 text-white">
-                        <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-white/25 font-semibold">
+                        <span className="font-mono text-[10px] px-2.5 py-0.5 rounded-full bg-white/20 font-semibold">
                           0{idx + 1}
                         </span>
                         <span className="text-xs font-sans font-medium line-clamp-1">
                           {item.caption}
                         </span>
-                      </div>
-                      <div className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center text-white shrink-0 ml-2">
-                        <Maximize2 className="w-3.5 h-3.5" />
                       </div>
                     </div>
                   </div>
@@ -1036,123 +1017,6 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
         </AnimatePresence>
 
       </motion.div>
-
-      {/* 4K LIGHTBOX PORTAL - MOUNTED DIRECTLY TO DOCUMENT BODY TO PREVENT JUMPING TO TOP */}
-      {typeof document !== "undefined" && createPortal(
-        <AnimatePresence>
-          {selectedPhotoIndex !== null && caseData.gallery?.[selectedPhotoIndex] && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.22 }}
-              onClick={(e) => {
-                if (e.target === e.currentTarget) {
-                  setSelectedPhotoIndex(null);
-                }
-              }}
-              className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 select-none cursor-zoom-out"
-            >
-              {/* TOP BAR: CAPTION & CLOSE BUTTON WITH ESC HINT */}
-              <div className="absolute top-4 sm:top-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between z-20 pointer-events-none">
-                <div className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-[#121A15]/80 border border-white/15 text-white/90 font-mono text-xs flex items-center gap-2 shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>{caseData.gallery[selectedPhotoIndex].caption}</span>
-                </div>
-
-                <button
-                  onClick={() => setSelectedPhotoIndex(null)}
-                  className="pointer-events-auto h-10 px-3.5 rounded-full bg-[#121A15]/80 hover:bg-[#121A15] text-white border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 cursor-pointer shadow-lg group"
-                  aria-label="Закрити фото"
-                >
-                  <X className="w-4 h-4 stroke-[2.2] group-hover:rotate-90 transition-transform duration-300" />
-                  <span className="hidden sm:inline font-mono text-[10px] text-white/70 uppercase tracking-widest font-semibold border-l border-white/20 pl-2">
-                    ESC
-                  </span>
-                </button>
-              </div>
-
-              {/* DESKTOP SIDE NAVIGATION ARROWS */}
-              {caseData.gallery.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length);
-                    }}
-                    className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#121A15]/80 hover:bg-white hover:text-black text-white border border-white/15 items-center justify-center transition-all duration-200 cursor-pointer shadow-xl group hover:scale-105"
-                    aria-label="Попереднє фото"
-                  >
-                    <ChevronLeft className="w-5 h-5 stroke-[2.2] group-hover:-translate-x-0.5 transition-transform" />
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length);
-                    }}
-                    className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#121A15]/80 hover:bg-white hover:text-black text-white border border-white/15 items-center justify-center transition-all duration-200 cursor-pointer shadow-xl group hover:scale-105"
-                    aria-label="Наступне фото"
-                  >
-                    <ChevronRight className="w-5 h-5 stroke-[2.2] group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                </>
-              )}
-
-              {/* MAIN 4K PHOTO PREVIEW WITH SMOOTH SPRING */}
-              <motion.div 
-                key={selectedPhotoIndex}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative max-w-6xl max-h-[76vh] md:max-h-[82vh] flex flex-col items-center cursor-default z-10 p-1"
-              >
-                <img
-                  src={caseData.gallery[selectedPhotoIndex].url}
-                  alt={caseData.gallery[selectedPhotoIndex].caption}
-                  className="max-w-full max-h-[72vh] md:max-h-[78vh] object-contain rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/10"
-                />
-              </motion.div>
-
-              {/* BOTTOM NAVIGATION PILL (Index counter + Mobile Prev/Next) */}
-              <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-3 py-1.5 rounded-full bg-[#121A15]/90 border border-white/15 text-white shadow-xl">
-                {caseData.gallery.length > 1 && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length);
-                    }}
-                    className="p-1.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer text-white/80 hover:text-white"
-                    aria-label="Попереднє"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                )}
-
-                <span className="font-mono text-xs text-white/90 tracking-wider px-1 font-semibold">
-                  0{selectedPhotoIndex + 1} / 0{caseData.gallery.length}
-                </span>
-
-                {caseData.gallery.length > 1 && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length);
-                    }}
-                    className="p-1.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer text-white/80 hover:text-white"
-                    aria-label="Наступне"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
 
     </motion.div>
   );

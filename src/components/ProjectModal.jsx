@@ -306,12 +306,12 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
 
         {/* Hero Interactive Status Badge */}
         <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
-          <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 text-white font-mono text-xs flex items-center gap-2 shadow-md">
+          <div className="px-3.5 py-1.5 rounded-full bg-[#121A15]/85 border border-white/20 text-white font-mono text-xs flex items-center gap-2 shadow-md">
             <span ref={badgeDotRef} className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>{caption}</span>
           </div>
 
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/80 font-mono text-[10px] uppercase tracking-wider">
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#121A15]/70 border border-white/10 text-white/85 font-mono text-[10px] uppercase tracking-wider">
             <span ref={badgeTextRef}>Тактильний папір</span>
           </div>
         </div>
@@ -462,15 +462,15 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
         pulse: "bg-emerald-600",
         sectionDot: "bg-emerald-600",
         sectionNum: "text-emerald-900",
-        // Soft Light Green Buttons (Quiet Luxury Light Sage & Eucalyptus Glass)
-        primaryBtn: "bg-[#DCECE1]/90 hover:bg-[#CFE5D5] text-[#0C2F19] border border-[#2E7D47]/35 hover:border-[#2E7D47]/60 shadow-[0_8px_30px_rgba(46,125,71,0.14),inset_0_1px_2px_rgba(255,255,255,0.95)] hover:shadow-[0_12px_36px_rgba(46,125,71,0.25)]",
+        // Soft Light Green Buttons (Quiet Luxury Light Sage & Eucalyptus)
+        primaryBtn: "bg-[#DCECE1] hover:bg-[#CFE5D5] text-[#0C2F19] border border-[#2E7D47]/35 hover:border-[#2E7D47]/60 shadow-[0_8px_24px_rgba(46,125,71,0.12),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         primaryArrow: "text-[#1B4D3E]",
-        secondaryBtn: "bg-[#F2F8F5]/85 hover:bg-[#E6F1EA] text-[#123820] border border-emerald-800/20 hover:border-emerald-800/35 shadow-[0_6px_22px_rgba(46,125,71,0.07),inset_0_1px_2px_rgba(255,255,255,0.95)]",
+        secondaryBtn: "bg-[#F2F8F5] hover:bg-[#E6F1EA] text-[#123820] border border-emerald-800/20 hover:border-emerald-800/35 shadow-[0_6px_18px_rgba(46,125,71,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         secondaryArrow: "text-[#2E7D47]",
-        pillTag: "bg-[#EAF5EE]/75 border border-emerald-700/25 text-[#103A21] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
-        liveBtn: "bg-[#DCECE1]/90 hover:bg-[#CFE5D5] text-[#0C2F19] border border-[#2E7D47]/35 hover:border-[#2E7D47]/60 shadow-[0_8px_30px_rgba(46,125,71,0.14),inset_0_1px_2px_rgba(255,255,255,0.95)]",
+        pillTag: "bg-[#EAF5EE] border border-emerald-700/25 text-[#103A21] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
+        liveBtn: "bg-[#DCECE1] hover:bg-[#CFE5D5] text-[#0C2F19] border border-[#2E7D47]/35 hover:border-[#2E7D47]/60 shadow-[0_8px_24px_rgba(46,125,71,0.12),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         liveArrow: "text-[#1B4D3E]",
-        footerBtn: "bg-[#103A21]/90 hover:bg-[#103A21] text-[#F4F9F6] border border-emerald-500/30",
+        footerBtn: "bg-[#103A21] hover:bg-[#0A2615] text-[#F4F9F6] border border-emerald-500/30",
         footerArrow: "text-[#A3C9A8]"
       }
     : isAura
@@ -479,35 +479,32 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
         pulse: "bg-amber-500",
         sectionDot: "bg-amber-600",
         sectionNum: "text-amber-900",
-        // Soft Gold Buttons (Warm Champagne & Luminous Satin Gold Glass)
-        primaryBtn: "bg-[#F3E7D0]/90 hover:bg-[#EAD9BD] text-[#332410] border border-[#D4AF37]/50 hover:border-[#D4AF37]/75 shadow-[0_8px_30px_rgba(212,175,55,0.2),inset_0_1px_2px_rgba(255,255,255,0.95)] hover:shadow-[0_12px_36px_rgba(212,175,55,0.32)]",
+        // Soft Gold Buttons (Warm Champagne & Luminous Satin Gold)
+        primaryBtn: "bg-[#F3E7D0] hover:bg-[#EAD9BD] text-[#332410] border border-[#D4AF37]/50 hover:border-[#D4AF37]/75 shadow-[0_8px_24px_rgba(212,175,55,0.18),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         primaryArrow: "text-[#B8860B]",
-        secondaryBtn: "bg-[#FAF6EE]/85 hover:bg-[#F3ECE0] text-[#362612] border border-[#D4AF37]/30 hover:border-[#D4AF37]/50 shadow-[0_6px_22px_rgba(212,175,55,0.08),inset_0_1px_2px_rgba(255,255,255,0.95)]",
+        secondaryBtn: "bg-[#FAF6EE] hover:bg-[#F3ECE0] text-[#362612] border border-[#D4AF37]/30 hover:border-[#D4AF37]/50 shadow-[0_6px_18px_rgba(212,175,55,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         secondaryArrow: "text-[#996515]",
-        pillTag: "bg-[#F6EEDF]/75 border border-[#D4AF37]/35 text-[#4D3716] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
-        liveBtn: "bg-[#F3E7D0]/90 hover:bg-[#EAD9BD] text-[#332410] border border-[#D4AF37]/50 hover:border-[#D4AF37]/75 shadow-[0_8px_30px_rgba(212,175,55,0.2),inset_0_1px_2px_rgba(255,255,255,0.95)]",
+        pillTag: "bg-[#F6EEDF] border border-[#D4AF37]/35 text-[#4D3716] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
+        liveBtn: "bg-[#F3E7D0] hover:bg-[#EAD9BD] text-[#332410] border border-[#D4AF37]/50 hover:border-[#D4AF37]/75 shadow-[0_8px_24px_rgba(212,175,55,0.18),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         liveArrow: "text-[#B8860B]",
-        footerBtn: "bg-[#281E10]/90 hover:bg-[#281E10] text-[#FAF5EB] border border-amber-400/30",
+        footerBtn: "bg-[#281E10] hover:bg-[#1A1308] text-[#FAF5EB] border border-amber-400/30",
         footerArrow: "text-[#E5C387]"
       }
     : {
-        badge: "bg-[#F5EFEB]/90 border-[#8C6D46]/25 text-[#3D2C22]",
+        badge: "bg-[#F5EFEB] border-[#8C6D46]/25 text-[#3D2C22]",
         pulse: "bg-[#8C6D46]",
         sectionDot: "bg-[#8C6D46]",
         sectionNum: "text-[#5C4D3E]",
         accentText: "text-[#5C4D3E]",
-        glowTop: "bg-[#8C6D46]/[0.05]",
-        glowMid: "bg-amber-200/[0.12]",
-        glowBottom: "bg-stone-800/[0.035]",
-        // Soft Warm Brown Buttons (Warm Mocha, Chestnut & Latte Ceramic Glass)
-        primaryBtn: "bg-[#4D3A2F]/90 hover:bg-[#3F2E24] text-[#FAF5EF] border border-[#96785C]/40 hover:border-[#96785C]/65 shadow-[0_8px_30px_rgba(77,58,47,0.22),inset_0_1px_1px_rgba(255,255,255,0.28)] hover:shadow-[0_12px_36px_rgba(77,58,47,0.32)]",
+        // Soft Warm Brown Buttons (Warm Mocha, Chestnut & Latte Ceramic)
+        primaryBtn: "bg-[#4D3A2F] hover:bg-[#3F2E24] text-[#FAF5EF] border border-[#96785C]/40 hover:border-[#96785C]/65 shadow-[0_8px_24px_rgba(77,58,47,0.2),inset_0_1px_1px_rgba(255,255,255,0.28)]",
         primaryArrow: "text-[#DEC09B]",
-        secondaryBtn: "bg-[#F6F0E8]/85 hover:bg-[#EDE3D6] text-[#3D2C22] border border-[#8C6D46]/25 hover:border-[#8C6D46]/45 shadow-[0_6px_22px_rgba(77,58,47,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)]",
+        secondaryBtn: "bg-[#F6F0E8] hover:bg-[#EDE3D6] text-[#3D2C22] border border-[#8C6D46]/25 hover:border-[#8C6D46]/45 shadow-[0_6px_18px_rgba(77,58,47,0.06),inset_0_1px_2px_rgba(255,255,255,0.95)]",
         secondaryArrow: "text-[#7A5A43]",
-        pillTag: "bg-[#F2EAE0]/75 border border-[#8C6D46]/25 text-[#423024] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
-        liveBtn: "bg-[#4D3A2F]/90 hover:bg-[#3F2E24] text-[#FAF5EF] border border-[#96785C]/40 hover:border-[#96785C]/65 shadow-[0_8px_30px_rgba(77,58,47,0.22),inset_0_1px_1px_rgba(255,255,255,0.28)]",
+        pillTag: "bg-[#F2EAE0] border border-[#8C6D46]/25 text-[#423024] shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
+        liveBtn: "bg-[#4D3A2F] hover:bg-[#3F2E24] text-[#FAF5EF] border border-[#96785C]/40 hover:border-[#96785C]/65 shadow-[0_8px_24px_rgba(77,58,47,0.2),inset_0_1px_1px_rgba(255,255,255,0.28)]",
         liveArrow: "text-[#DEC09B]",
-        footerBtn: "bg-[#3A2B22]/90 hover:bg-[#3A2B22] text-[#FAF5EF] border border-[#96785C]/35",
+        footerBtn: "bg-[#3A2B22] hover:bg-[#2A1E17] text-[#FAF5EF] border border-[#96785C]/35",
         footerArrow: "text-[#DEC09B]"
       };
 
@@ -523,21 +520,37 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
           onClose();
         }
       }}
-      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-[#070707]/75 backdrop-blur-2xl text-[#121A15] selection:bg-[#2E7D47] selection:text-[#FFFFFF] font-sans p-0 sm:p-4 md:p-6 lg:p-8 overscroll-y-contain cursor-default"
+      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-[#070707]/80 text-[#121A15] selection:bg-[#2E7D47] selection:text-[#FFFFFF] font-sans p-0 sm:p-4 md:p-6 lg:p-8 overscroll-y-contain cursor-default transform-gpu"
+      style={{ WebkitOverflowScrolling: "touch" }}
     >
-      {/* ATMOSPHERIC LUXURY AMBIENT BACKGROUND */}
+      {/* ATMOSPHERIC LUXURY AMBIENT BACKGROUND (Zero-Blur Fast Radial Shaders) */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden select-none -z-10">
         {/* Architectural Dot Matrix Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.5px,transparent_0.5px)] [background-size:28px_28px] opacity-[0.035]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.5px,transparent_0.5px)] [background-size:28px_28px] opacity-[0.03]" />
         
         {/* Soft Ambient Aurora (Top Right) */}
-        <div className={`absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full ${themeStyles.glowTop} blur-[140px] transition-colors duration-500`} />
+        <div 
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full pointer-events-none transition-opacity duration-500"
+          style={{
+            background: isMaira
+              ? "radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 45%, transparent 70%)"
+              : isAura
+              ? "radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.02) 45%, transparent 70%)"
+              : "radial-gradient(circle, rgba(178, 142, 110, 0.09) 0%, rgba(178, 142, 110, 0.02) 45%, transparent 70%)"
+          }}
+        />
         
         {/* Ambient Glow (Center Left) */}
-        <div className={`absolute top-1/3 -left-48 w-[620px] h-[620px] rounded-full ${themeStyles.glowMid} blur-[150px] transition-colors duration-500`} />
-        
-        {/* Deep Atmosphere (Bottom Right) */}
-        <div className={`absolute -bottom-32 right-1/4 w-[720px] h-[720px] rounded-full ${themeStyles.glowBottom} blur-[140px] transition-colors duration-500`} />
+        <div 
+          className="absolute top-1/3 -left-32 w-[550px] h-[550px] rounded-full pointer-events-none transition-opacity duration-500"
+          style={{
+            background: isMaira
+              ? "radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 65%)"
+              : isAura
+              ? "radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 65%)"
+              : "radial-gradient(circle, rgba(178, 142, 110, 0.07) 0%, transparent 65%)"
+          }}
+        />
       </div>
       
       {/* MAIN FLOATING MODAL CARD */}
@@ -546,7 +559,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.98, y: 12 }}
         transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
-        className="relative w-full max-w-7xl mx-auto bg-[#FAF8F5]/96 backdrop-blur-3xl rounded-none sm:rounded-[40px] md:rounded-[48px] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.06)] border border-black/[0.06] sm:border-white/90 flex flex-col my-0 sm:my-2 overflow-hidden"
+        className="relative w-full max-w-7xl mx-auto bg-[#FAF8F5] rounded-none sm:rounded-[40px] md:rounded-[48px] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.45),0_1px_3px_rgba(0,0,0,0.08)] border border-black/[0.06] sm:border-white/90 flex flex-col my-0 sm:my-2 overflow-hidden transform-gpu"
       >
         
         {/* FLOATING TOP-RIGHT CLOSE BUTTON WITH ESC HINT */}
@@ -554,7 +567,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.92 }}
           onClick={onClose}
-          className="fixed sm:absolute top-5 right-5 sm:top-7 sm:right-7 z-50 h-11 px-3 sm:px-3.5 rounded-full bg-[#121A15]/85 hover:bg-[#121A15] text-[#FAF8F5] backdrop-blur-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.18)] group"
+          className="fixed sm:absolute top-5 right-5 sm:top-7 sm:right-7 z-50 h-11 px-3 sm:px-3.5 rounded-full bg-[#121A15]/90 hover:bg-[#121A15] text-[#FAF8F5] border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.18)] group"
           aria-label="Закрити кейс"
         >
           <X className="w-4 h-4 stroke-[2.2] group-hover:rotate-90 transition-transform duration-300" />
@@ -605,7 +618,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full backdrop-blur-2xl transition-all duration-300 font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold active:scale-[0.97] group cursor-pointer whitespace-nowrap shrink-0 ${themeStyles.primaryBtn}`}
+                      className={`inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full transition-all duration-300 font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold active:scale-[0.97] group cursor-pointer whitespace-nowrap shrink-0 ${themeStyles.primaryBtn}`}
                     >
                       <span>{caseData.resultsAndLive?.liveExperience?.btnText || "Відкрити сайт"}</span>
                       <span className={`transition-transform duration-200 group-hover:translate-x-1 ${themeStyles.primaryArrow}`}>→</span>
@@ -615,14 +628,14 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                   {/* Button 2: Обговорити проєкт */}
                   <button
                     onClick={() => { onClose(); if (onOpenContact) onOpenContact(); }}
-                    className={`inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full backdrop-blur-2xl transition-all duration-300 font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold active:scale-[0.97] group cursor-pointer whitespace-nowrap shrink-0 ${themeStyles.secondaryBtn}`}
+                    className={`inline-flex items-center gap-2 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full transition-all duration-300 font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold active:scale-[0.97] group cursor-pointer whitespace-nowrap shrink-0 ${themeStyles.secondaryBtn}`}
                   >
                     <span>Обговорити проєкт</span>
                     <span className={`transition-transform duration-200 group-hover:translate-x-1 ${themeStyles.secondaryArrow}`}>→</span>
                   </button>
 
                   {/* Pill Tag */}
-                  <span className={`px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-full backdrop-blur-xl font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold whitespace-nowrap shrink-0 ${themeStyles.pillTag}`}>
+                  <span className={`px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-full font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold whitespace-nowrap shrink-0 ${themeStyles.pillTag}`}>
                     {caseData.hero.pillTag}
                   </span>
                 </div>
@@ -662,7 +675,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Problem Card */}
-              <div className="p-7 sm:p-9 rounded-[32px] bg-gradient-to-b from-white/95 to-white/80 backdrop-blur-xl border border-black/[0.04] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.05)] transition-all duration-300 space-y-3.5">
+              <div className="p-7 sm:p-9 rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.05)] transition-all duration-300 space-y-3.5">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-900/15 text-rose-950 font-mono text-[10px] uppercase tracking-wider font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
                   <span>{caseData.problemSolution.problem.tag}</span>
@@ -676,7 +689,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               </div>
 
               {/* Solution Card */}
-              <div className="p-7 sm:p-9 rounded-[32px] bg-gradient-to-b from-white/95 to-white/80 backdrop-blur-xl border border-black/[0.04] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.05)] transition-all duration-300 space-y-3.5">
+              <div className="p-7 sm:p-9 rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.05)] transition-all duration-300 space-y-3.5">
                 <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border font-mono text-[10px] uppercase tracking-wider font-semibold ${themeStyles.badge}`}>
                   <span className={`w-1.5 h-1.5 rounded-full ${themeStyles.pulse}`} />
                   <span>{caseData.problemSolution.solution.tag}</span>
@@ -712,7 +725,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               {caseData.conceptErgonomics.cards.map((card, idx) => (
                 <div 
                   key={idx} 
-                  className="p-7 sm:p-8 rounded-[32px] bg-white/85 hover:bg-white backdrop-blur-xl border border-black/[0.04] hover:border-black/[0.1] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 space-y-3"
+                  className="p-7 sm:p-8 rounded-[32px] bg-white border border-black/[0.04] hover:border-black/[0.1] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 space-y-3"
                 >
                   <span className="font-mono text-[10px] text-[#5C4D3E]/70 bg-black/[0.03] px-2.5 py-1 rounded-full border border-black/[0.03] font-semibold uppercase tracking-wider inline-block">
                     {card.tag}
@@ -748,14 +761,14 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                 <button
                   key={idx}
                   onClick={() => handleCopyHex(color.hex)}
-                  className="p-4 sm:p-4.5 rounded-[26px] bg-white/85 hover:bg-white backdrop-blur-2xl border border-black/[0.05] hover:border-black/[0.12] shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 text-left group cursor-pointer space-y-3 relative overflow-hidden flex flex-col justify-between"
+                  className="p-4 sm:p-4.5 rounded-[26px] bg-white border border-black/[0.05] hover:border-black/[0.12] shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 text-left group cursor-pointer space-y-3 relative overflow-hidden flex flex-col justify-between"
                 >
                   {/* Swatch Header Box */}
                   <div 
                     style={{ backgroundColor: color.hex }}
                     className="w-full h-24 rounded-[20px] flex items-end justify-between p-3 shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_-1px_2px_rgba(0,0,0,0.3)] border border-black/[0.06] relative group-hover:scale-[1.01] transition-transform duration-300"
                   >
-                    <span className={`font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full backdrop-blur-md ${color.textDark ? "bg-black/10 text-[#121A15] font-bold" : "bg-white/15 text-white font-medium"}`}>
+                    <span className={`font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full ${color.textDark ? "bg-black/15 text-[#121A15] font-bold" : "bg-white/20 text-white font-medium"}`}>
                       {color.tag}
                     </span>
                     
@@ -767,7 +780,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                           <span>Copied</span>
                         </span>
                       ) : (
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${color.textDark ? "bg-black/10 text-[#121A15] group-hover:bg-black group-hover:text-white" : "bg-white/15 text-white group-hover:bg-white group-hover:text-black"}`}>
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${color.textDark ? "bg-black/15 text-[#121A15] group-hover:bg-black group-hover:text-white" : "bg-white/20 text-white group-hover:bg-white group-hover:text-black"}`}>
                           <Copy className="w-3 h-3" />
                         </div>
                       )}
@@ -806,7 +819,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               {caseData.designSystem.typography.map((font, idx) => (
                 <div 
                   key={idx} 
-                  className="p-6 sm:p-7 rounded-[30px] bg-white/85 hover:bg-white backdrop-blur-2xl border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex flex-col justify-between space-y-4 hover:border-black/[0.1] hover:-translate-y-0.5 transition-all duration-300"
+                  className="p-6 sm:p-7 rounded-[30px] bg-white border border-black/[0.04] shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex flex-col justify-between space-y-4 hover:border-black/[0.1] hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
@@ -876,14 +889,14 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                     {/* Subtle Frosted Bottom Capsule on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 sm:p-5">
                       <div className="flex items-center gap-2 text-white">
-                        <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md font-semibold">
+                        <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-white/25 font-semibold">
                           0{idx + 1}
                         </span>
                         <span className="text-xs font-sans font-medium line-clamp-1">
                           {item.caption}
                         </span>
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0 ml-2">
+                      <div className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center text-white shrink-0 ml-2">
                         <Maximize2 className="w-3.5 h-3.5" />
                       </div>
                     </div>
@@ -911,7 +924,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
-              <div className="p-7 sm:p-9 rounded-[32px] bg-white/85 backdrop-blur-xl border border-black/[0.04] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] space-y-3">
+              <div className="p-7 sm:p-9 rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] space-y-3">
                 <span className={`font-mono text-xs uppercase font-bold ${themeStyles.accentText} block tracking-wider`}>
                   {caseData.resultsAndLive.summary.title1}
                 </span>
@@ -920,7 +933,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                 </p>
               </div>
 
-              <div className="p-7 sm:p-9 rounded-[32px] bg-white/85 backdrop-blur-xl border border-black/[0.04] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] space-y-3">
+              <div className="p-7 sm:p-9 rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] space-y-3">
                 <span className={`font-mono text-xs uppercase font-bold ${themeStyles.accentText} block tracking-wider`}>
                   {caseData.resultsAndLive.summary.title2}
                 </span>
@@ -933,7 +946,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
 
             {/* Simple Clean Live Link Card */}
             {project.liveUrl && (
-              <div className="p-7 sm:p-8 rounded-[32px] bg-white/85 backdrop-blur-xl border border-black/[0.04] shadow-[0_10px_35px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.95)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="p-7 sm:p-8 rounded-[32px] bg-white border border-black/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,0.95)] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 text-[#121A15] font-medium text-sm">
                     <span className={`w-2 h-2 rounded-full ${themeStyles.pulse} animate-pulse`} />
@@ -950,7 +963,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-6 py-3.5 rounded-full backdrop-blur-2xl font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2.5 active:scale-[0.97] group cursor-pointer ${themeStyles.liveBtn}`}
+                    className={`px-6 py-3.5 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2.5 active:scale-[0.97] group cursor-pointer ${themeStyles.liveBtn}`}
                   >
                     <span>{caseData.resultsAndLive.liveExperience.btnText}</span>
                     <span className={`transition-transform duration-200 group-hover:translate-x-1 ${themeStyles.liveArrow}`}>→</span>
@@ -967,7 +980,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => onSelectProject ? onSelectProject(prevProject.id) : null}
-              className="group flex items-center gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2]/70 hover:bg-[#FAF7F2] backdrop-blur-xl border border-black/[0.04] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-left"
+              className="group flex items-center gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2] hover:bg-[#F2ECE3] border border-black/[0.05] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-left"
             >
               <div className="w-9 h-9 rounded-full bg-black/5 group-hover:bg-[#121A15] text-[#121A15] group-hover:text-[#F9F6F0] flex items-center justify-center transition-colors duration-200 shrink-0 group-hover:-translate-x-0.5">
                 <ChevronLeft className="w-4 h-4 stroke-[2.2]" />
@@ -988,7 +1001,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.96 }}
                 onClick={() => { onClose(); if (onOpenContact) onOpenContact(); }}
-                className={`w-full sm:w-auto px-8 py-3.5 rounded-full backdrop-blur-2xl font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] cursor-pointer inline-flex items-center justify-center gap-2.5 group ${themeStyles.footerBtn}`}
+                className={`w-full sm:w-auto px-8 py-3.5 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] cursor-pointer inline-flex items-center justify-center gap-2.5 group ${themeStyles.footerBtn}`}
               >
                 <span>Обговорити проєкт</span>
                 <span className={`transition-transform duration-200 group-hover:translate-x-1 ${themeStyles.footerArrow}`}>→</span>
@@ -1000,7 +1013,7 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => onSelectProject ? onSelectProject(nextProject.id) : null}
-              className="group flex items-center justify-between sm:justify-end gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2]/70 hover:bg-[#FAF7F2] backdrop-blur-xl border border-black/[0.04] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-right"
+              className="group flex items-center justify-between sm:justify-end gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2] hover:bg-[#F2ECE3] border border-black/[0.05] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-right"
             >
               <div>
                 <span className="block font-mono text-[9px] uppercase tracking-widest text-[#5C4D3E]/60">

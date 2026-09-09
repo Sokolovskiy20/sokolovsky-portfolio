@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../translations";
 import { projectsData } from "../data/projectsData";
@@ -1036,64 +1037,122 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
 
       </motion.div>
 
-      {/* 4K LIGHTBOX WITH FLUID MOTION */}
-      <AnimatePresence>
-        {selectedPhotoIndex !== null && caseData.gallery?.[selectedPhotoIndex] && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-60 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4"
-          >
-            <motion.button
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setSelectedPhotoIndex(null)}
-              className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </motion.button>
-
+      {/* 4K LIGHTBOX PORTAL - MOUNTED DIRECTLY TO DOCUMENT BODY TO PREVENT JUMPING TO TOP */}
+      {typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {selectedPhotoIndex !== null && caseData.gallery?.[selectedPhotoIndex] && (
             <motion.div 
-              key={selectedPhotoIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="relative max-w-6xl max-h-[82vh] flex flex-col items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              onClick={(e) => {
+                if (e.target === e.currentTarget) {
+                  setSelectedPhotoIndex(null);
+                }
+              }}
+              className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 select-none cursor-zoom-out"
             >
-              <img
-                src={caseData.gallery[selectedPhotoIndex].url}
-                alt={caseData.gallery[selectedPhotoIndex].caption}
-                className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10"
-              />
-              <p className="mt-4 text-sm font-mono text-white/80 text-center">
-                {caseData.gallery[selectedPhotoIndex].caption} ({selectedPhotoIndex + 1} / {caseData.gallery.length})
-              </p>
-            </motion.div>
+              {/* TOP BAR: CAPTION & CLOSE BUTTON WITH ESC HINT */}
+              <div className="absolute top-4 sm:top-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between z-20 pointer-events-none">
+                <div className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-[#121A15]/80 border border-white/15 text-white/90 font-mono text-xs flex items-center gap-2 shadow-lg">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>{caseData.gallery[selectedPhotoIndex].caption}</span>
+                </div>
 
-            <div className="flex items-center gap-4 mt-6">
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length)}
-                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                <button
+                  onClick={() => setSelectedPhotoIndex(null)}
+                  className="pointer-events-auto h-10 px-3.5 rounded-full bg-[#121A15]/80 hover:bg-[#121A15] text-white border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 cursor-pointer shadow-lg group"
+                  aria-label="Закрити фото"
+                >
+                  <X className="w-4 h-4 stroke-[2.2] group-hover:rotate-90 transition-transform duration-300" />
+                  <span className="hidden sm:inline font-mono text-[10px] text-white/70 uppercase tracking-widest font-semibold border-l border-white/20 pl-2">
+                    ESC
+                  </span>
+                </button>
+              </div>
+
+              {/* DESKTOP SIDE NAVIGATION ARROWS */}
+              {caseData.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length);
+                    }}
+                    className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#121A15]/80 hover:bg-white hover:text-black text-white border border-white/15 items-center justify-center transition-all duration-200 cursor-pointer shadow-xl group hover:scale-105"
+                    aria-label="Попереднє фото"
+                  >
+                    <ChevronLeft className="w-5 h-5 stroke-[2.2] group-hover:-translate-x-0.5 transition-transform" />
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length);
+                    }}
+                    className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-[#121A15]/80 hover:bg-white hover:text-black text-white border border-white/15 items-center justify-center transition-all duration-200 cursor-pointer shadow-xl group hover:scale-105"
+                    aria-label="Наступне фото"
+                  >
+                    <ChevronRight className="w-5 h-5 stroke-[2.2] group-hover:translate-x-0.5 transition-transform" />
+                  </button>
+                </>
+              )}
+
+              {/* MAIN 4K PHOTO PREVIEW WITH SMOOTH SPRING */}
+              <motion.div 
+                key={selectedPhotoIndex}
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-6xl max-h-[76vh] md:max-h-[82vh] flex flex-col items-center cursor-default z-10 p-1"
               >
-                <ChevronLeft className="w-5 h-5" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length)}
-                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </motion.button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                <img
+                  src={caseData.gallery[selectedPhotoIndex].url}
+                  alt={caseData.gallery[selectedPhotoIndex].caption}
+                  className="max-w-full max-h-[72vh] md:max-h-[78vh] object-contain rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/10"
+                />
+              </motion.div>
+
+              {/* BOTTOM NAVIGATION PILL (Index counter + Mobile Prev/Next) */}
+              <div className="absolute bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 px-3 py-1.5 rounded-full bg-[#121A15]/90 border border-white/15 text-white shadow-xl">
+                {caseData.gallery.length > 1 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length);
+                    }}
+                    className="p-1.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer text-white/80 hover:text-white"
+                    aria-label="Попереднє"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                )}
+
+                <span className="font-mono text-xs text-white/90 tracking-wider px-1 font-semibold">
+                  0{selectedPhotoIndex + 1} / 0{caseData.gallery.length}
+                </span>
+
+                {caseData.gallery.length > 1 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length);
+                    }}
+                    className="p-1.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer text-white/80 hover:text-white"
+                    aria-label="Наступне"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
     </motion.div>
   );

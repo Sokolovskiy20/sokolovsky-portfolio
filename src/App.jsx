@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import ProjectModal from './components/ProjectModal';
@@ -119,6 +120,17 @@ export default function App() {
     window.history.pushState({}, '', url.toString());
   }, []);
 
+  // Seamless contact navigation from modal
+  const handleOpenContact = useCallback(() => {
+    handleCloseProject();
+    setTimeout(() => {
+      const contactEl = document.getElementById('contact');
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 250);
+  }, [handleCloseProject]);
+
   // Sync initial URL and popstate
   useEffect(() => {
     const currentLang = getLangFromLocation();
@@ -167,15 +179,19 @@ export default function App() {
         />
       </main>
 
-      {/* Cinematic Full-Screen Page for deep-dive case inspection */}
-      {selectedProjectId && (
-        <ProjectModal 
-          projectId={selectedProjectId}
-          onClose={handleCloseProject}
-          onSelectProject={handleSelectProject}
-          lang={lang}
-        />
-      )}
+      {/* Cinematic Full-Screen Page for deep-dive case inspection with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {selectedProjectId && (
+          <ProjectModal 
+            key="case-modal"
+            projectId={selectedProjectId}
+            onClose={handleCloseProject}
+            onSelectProject={handleSelectProject}
+            onOpenContact={handleOpenContact}
+            lang={lang}
+          />
+        )}
+      </AnimatePresence>
 
     </div>
   );

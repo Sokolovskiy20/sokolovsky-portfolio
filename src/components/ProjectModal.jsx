@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../translations";
 import { projectsData } from "../data/projectsData";
 import { 
@@ -381,13 +382,22 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
   }, [selectedPhotoIndex, onClose, caseData.gallery]);
 
   useEffect(() => {
+    const originalOverflow = window.getComputedStyle(document.body).overflow;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop = 0;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = "";
     };
+  }, []);
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: "instant" });
+    }
   }, [projectId]);
 
   // Project-specific themes for bespoke quiet luxury aesthetics
@@ -451,14 +461,23 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
       };
 
   return (
-    <div 
+    <motion.div 
       ref={scrollContainerRef}
-      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-[#F6F5F2] text-[#121A15] selection:bg-[#2E7D47] selection:text-[#FFFFFF] animate-in fade-in duration-300 font-sans p-0 sm:p-4 md:p-6 lg:p-8 overscroll-y-contain cursor-default"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+      onClick={(e) => {
+        if (e.target === scrollContainerRef.current) {
+          onClose();
+        }
+      }}
+      className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden bg-[#070707]/75 backdrop-blur-2xl text-[#121A15] selection:bg-[#2E7D47] selection:text-[#FFFFFF] font-sans p-0 sm:p-4 md:p-6 lg:p-8 overscroll-y-contain cursor-default"
     >
       {/* ATMOSPHERIC LUXURY AMBIENT BACKGROUND */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden select-none -z-10">
         {/* Architectural Dot Matrix Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#121A15_0.75px,transparent_0.75px)] [background-size:28px_28px] opacity-[0.035]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.5px,transparent_0.5px)] [background-size:28px_28px] opacity-[0.035]" />
         
         {/* Soft Ambient Aurora (Top Right) */}
         <div className={`absolute -top-40 -right-40 w-[680px] h-[680px] rounded-full ${themeStyles.glowTop} blur-[140px] transition-colors duration-500`} />
@@ -471,22 +490,38 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
       </div>
       
       {/* MAIN FLOATING MODAL CARD */}
-      <div className="relative w-full max-w-7xl mx-auto bg-white/92 backdrop-blur-3xl rounded-none sm:rounded-[40px] md:rounded-[48px] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.08),0_1px_3px_rgba(0,0,0,0.03)] border border-black/[0.05] sm:border-white/90 flex flex-col my-0 sm:my-2">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.97, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.98, y: 12 }}
+        transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+        className="relative w-full max-w-7xl mx-auto bg-[#FAF8F5]/96 backdrop-blur-3xl rounded-none sm:rounded-[40px] md:rounded-[48px] shadow-[0_30px_100px_-20px_rgba(0,0,0,0.35),0_1px_3px_rgba(0,0,0,0.06)] border border-black/[0.06] sm:border-white/90 flex flex-col my-0 sm:my-2 overflow-hidden"
+      >
         
         {/* FLOATING TOP-RIGHT CLOSE BUTTON WITH ESC HINT */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.92 }}
           onClick={onClose}
-          className="fixed sm:absolute top-5 right-5 sm:top-7 sm:right-7 z-50 h-11 px-3 sm:px-3.5 rounded-full bg-[#121A15]/85 hover:bg-[#121A15] text-[#FAF8F5] backdrop-blur-2xl border border-white/20 hover:border-white/40 transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.18)] group"
+          className="fixed sm:absolute top-5 right-5 sm:top-7 sm:right-7 z-50 h-11 px-3 sm:px-3.5 rounded-full bg-[#121A15]/85 hover:bg-[#121A15] text-[#FAF8F5] backdrop-blur-2xl border border-white/20 hover:border-white/40 transition-colors duration-200 flex items-center gap-2 cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.18)] group"
           aria-label="Закрити кейс"
         >
           <X className="w-4 h-4 stroke-[2.2] group-hover:rotate-90 transition-transform duration-300" />
           <span className="hidden sm:inline font-mono text-[10px] text-white/70 uppercase tracking-widest font-semibold border-l border-white/20 pl-2">
             ESC
           </span>
-        </button>
+        </motion.button>
 
-        {/* FULL-PAGE CASE STUDY BODY */}
-        <main className="flex-1 w-full pb-28 text-left">
+        {/* FULL-PAGE CASE STUDY BODY WITH FLUID CROSSFADE ON PROJECT SWITCH */}
+        <AnimatePresence mode="wait">
+          <motion.main 
+            key={projectId}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+            className="flex-1 w-full pb-28 text-left"
+          >
           
           {/* ========================================================================= */}
           {/* HERO SECTION */}
@@ -876,7 +911,9 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
           {/* FOOTER NAVIGATION */}
           <section className="pt-10 border-t border-black/[0.06] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5">
             {/* Previous Project Capsule */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => onSelectProject ? onSelectProject(prevProject.id) : null}
               className="group flex items-center gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2]/70 hover:bg-[#FAF7F2] backdrop-blur-xl border border-black/[0.04] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-left"
             >
@@ -891,21 +928,25 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                   {prevProject.title}
                 </span>
               </div>
-            </button>
+            </motion.button>
 
             {/* Central Main CTA: Обговорити проєкт */}
             <div className="flex justify-center">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => { onClose(); if (onOpenContact) onOpenContact(); }}
-                className={`w-full sm:w-auto px-8 py-3.5 rounded-full backdrop-blur-2xl font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] active:scale-[0.97] cursor-pointer inline-flex items-center justify-center gap-2.5 group ${themeStyles.footerBtn}`}
+                className={`w-full sm:w-auto px-8 py-3.5 rounded-full backdrop-blur-2xl font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)] cursor-pointer inline-flex items-center justify-center gap-2.5 group ${themeStyles.footerBtn}`}
               >
                 <span>Обговорити проєкт</span>
                 <span className={`transition-transform duration-200 group-hover:translate-x-1 ${themeStyles.footerArrow}`}>→</span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Next Project Capsule */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => onSelectProject ? onSelectProject(nextProject.id) : null}
               className="group flex items-center justify-between sm:justify-end gap-3.5 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#FAF7F2]/70 hover:bg-[#FAF7F2] backdrop-blur-xl border border-black/[0.04] hover:border-black/[0.12] shadow-[0_4px_16px_rgba(0,0,0,0.02),inset_0_1px_1px_rgba(255,255,255,0.8)] transition-all duration-200 cursor-pointer text-right"
             >
@@ -920,53 +961,75 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
               <div className="w-9 h-9 rounded-full bg-black/5 group-hover:bg-[#121A15] text-[#121A15] group-hover:text-[#F9F6F0] flex items-center justify-center transition-colors duration-200 shrink-0 group-hover:translate-x-0.5">
                 <ChevronRight className="w-4 h-4 stroke-[2.2]" />
               </div>
-            </button>
+            </motion.button>
           </section>
 
         </div>
 
-      </main>
+          </motion.main>
+        </AnimatePresence>
 
-      </div>
+      </motion.div>
 
-      {/* 4K LIGHTBOX */}
-      {selectedPhotoIndex !== null && caseData.gallery?.[selectedPhotoIndex] && (
-        <div className="fixed inset-0 z-60 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4">
-          <button
-            onClick={() => setSelectedPhotoIndex(null)}
-            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+      {/* 4K LIGHTBOX WITH FLUID MOTION */}
+      <AnimatePresence>
+        {selectedPhotoIndex !== null && caseData.gallery?.[selectedPhotoIndex] && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 z-60 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4"
           >
-            <X className="w-6 h-6" />
-          </button>
-
-          <div className="relative max-w-6xl max-h-[82vh] flex flex-col items-center">
-            <img
-              src={caseData.gallery[selectedPhotoIndex].url}
-              alt={caseData.gallery[selectedPhotoIndex].caption}
-              className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10"
-            />
-            <p className="mt-4 text-sm font-mono text-white/80 text-center">
-              {caseData.gallery[selectedPhotoIndex].caption} ({selectedPhotoIndex + 1} / {caseData.gallery.length})
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4 mt-6">
-            <button
-              onClick={() => setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length)}
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setSelectedPhotoIndex(null)}
+              className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
             >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length)}
-              className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      )}
+              <X className="w-6 h-6" />
+            </motion.button>
 
-    </div>
+            <motion.div 
+              key={selectedPhotoIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+              className="relative max-w-6xl max-h-[82vh] flex flex-col items-center"
+            >
+              <img
+                src={caseData.gallery[selectedPhotoIndex].url}
+                alt={caseData.gallery[selectedPhotoIndex].caption}
+                className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10"
+              />
+              <p className="mt-4 text-sm font-mono text-white/80 text-center">
+                {caseData.gallery[selectedPhotoIndex].caption} ({selectedPhotoIndex + 1} / {caseData.gallery.length})
+              </p>
+            </motion.div>
+
+            <div className="flex items-center gap-4 mt-6">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedPhotoIndex((selectedPhotoIndex - 1 + caseData.gallery.length) % caseData.gallery.length)}
+                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedPhotoIndex((selectedPhotoIndex + 1) % caseData.gallery.length)}
+                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+    </motion.div>
   );
 }

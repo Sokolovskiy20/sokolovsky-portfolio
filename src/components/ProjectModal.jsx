@@ -13,102 +13,153 @@ import {
   Maximize2
 } from "lucide-react";
 
-/* Interactive Soft Tactile Paper Press Hero Component */
+/* Interactive Soft Tactile Paper Press Hero Component (Zero-Re-Render 60 FPS Edition) */
 function SoftPaperPressHero({ className, imageSrc, caption }) {
   const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const imgRef = useRef(null);
+  const craterRef = useRef(null);
+  const rimRef = useRef(null);
+  const creaseRef = useRef(null);
   const canvasRef = useRef(null);
-  const [state, setState] = useState({
-    x: 0.5,
-    y: 0.5,
-    depth: 0,
-    rotX: 0,
-    rotY: 0,
-    isHovered: false,
-    isPressed: false,
-  });
+  const badgeDotRef = useRef(null);
+  const badgeTextRef = useRef(null);
 
   const animRef = useRef(null);
+  const isRunningRef = useRef(false);
+  const isHoveredRef = useRef(false);
+  const isPressedRef = useRef(false);
   const targetRef = useRef({ x: 0.5, y: 0.5, depth: 0 });
   const currentRef = useRef({ x: 0.5, y: 0.5, depth: 0, rotX: 0, rotY: 0 });
   const ripplesRef = useRef([]);
 
+  const updateVisuals = (cur) => {
+    const pixelX = (cur.x * 100).toFixed(1);
+    const pixelY = (cur.y * 100).toFixed(1);
+
+    if (cardRef.current) {
+      cardRef.current.style.transform = `rotateX(${cur.rotX.toFixed(2)}deg) rotateY(${cur.rotY.toFixed(2)}deg) translateZ(${(-12 * cur.depth).toFixed(1)}px)`;
+    }
+    if (imgRef.current) {
+      imgRef.current.style.transform = `scale(${(1 - 0.018 * cur.depth).toFixed(3)})`;
+      imgRef.current.style.filter = `brightness(${(1 - 0.04 * cur.depth).toFixed(3)})`;
+    }
+    if (craterRef.current) {
+      craterRef.current.style.opacity = cur.depth > 0.01 ? "1" : "0";
+      if (cur.depth > 0.01) {
+        craterRef.current.style.background = `radial-gradient(circle 240px at ${pixelX}% ${pixelY}%, rgba(0,0,0,${(0.48 * cur.depth).toFixed(3)}) 0%, rgba(0,0,0,${(0.22 * cur.depth).toFixed(3)}) 32%, rgba(0,0,0,${(0.04 * cur.depth).toFixed(3)}) 60%, transparent 80%)`;
+      }
+    }
+    if (rimRef.current) {
+      rimRef.current.style.opacity = cur.depth > 0.01 ? "1" : "0";
+      if (cur.depth > 0.01) {
+        rimRef.current.style.background = `radial-gradient(ellipse 260px 110px at ${pixelX}% ${Math.max(0, parseFloat(pixelY) - 4).toFixed(1)}%, rgba(255,255,255,${(0.3 * cur.depth).toFixed(3)}) 0%, rgba(255,255,255,${(0.08 * cur.depth).toFixed(3)}) 35%, transparent 65%)`;
+      }
+    }
+    if (creaseRef.current) {
+      creaseRef.current.style.opacity = cur.depth > 0.01 ? "1" : "0";
+      if (cur.depth > 0.01) {
+        creaseRef.current.style.background = `radial-gradient(ellipse 200px 90px at ${pixelX}% ${Math.min(100, parseFloat(pixelY) + 4).toFixed(1)}%, rgba(0,0,0,${(0.38 * cur.depth).toFixed(3)}) 0%, transparent 65%)`;
+      }
+    }
+    if (badgeDotRef.current) {
+      if (cur.depth > 0.1) {
+        badgeDotRef.current.className = "w-2 h-2 rounded-full transition-colors duration-300 bg-emerald-300 scale-125";
+      } else {
+        badgeDotRef.current.className = "w-2 h-2 rounded-full transition-colors duration-300 bg-emerald-400 animate-pulse";
+      }
+    }
+    if (badgeTextRef.current) {
+      badgeTextRef.current.textContent = isPressedRef.current
+        ? "М'який папір · Втиснуто"
+        : isHoveredRef.current
+        ? "М'який папір · Натисніть"
+        : "Тактильний папір";
+    }
+  };
+
+  const startLoop = () => {
+    if (isRunningRef.current) return;
+    isRunningRef.current = true;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas ? canvas.getContext("2d") : null;
+
+    const tick = () => {
+      const cur = currentRef.current;
+      const tar = targetRef.current;
+
+      // Spring physics
+      cur.x += (tar.x - cur.x) * 0.15;
+      cur.y += (tar.y - cur.y) * 0.15;
+      cur.depth += (tar.depth - cur.depth) * 0.12;
+
+      const targetRotX = (cur.y - 0.5) * -7 * cur.depth;
+      const targetRotY = (cur.x - 0.5) * 7 * cur.depth;
+      cur.rotX += (targetRotX - cur.rotX) * 0.15;
+      cur.rotY += (targetRotY - cur.rotY) * 0.15;
+
+      updateVisuals(cur);
+
+      // Render ripples on canvas if active
+      if (ctx && canvas && canvas.width > 0 && canvas.height > 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const ripples = ripplesRef.current;
+        if (ripples.length > 0) {
+          for (let i = ripples.length - 1; i >= 0; i--) {
+            const r = ripples[i];
+            r.radius += r.speed;
+            r.alpha -= r.fade;
+            if (r.alpha <= 0) {
+              ripples.splice(i, 1);
+              continue;
+            }
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(r.x, r.y, r.radius, r.radius * 0.65, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha * 0.22})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
+
+      // Check resting state to auto-sleep and free up 100% CPU
+      const isSettled =
+        Math.abs(cur.depth - tar.depth) < 0.001 &&
+        Math.abs(cur.rotX - targetRotX) < 0.01 &&
+        Math.abs(cur.rotY - targetRotY) < 0.01 &&
+        ripplesRef.current.length === 0 &&
+        !isHoveredRef.current &&
+        !isPressedRef.current;
+
+      if (isSettled) {
+        isRunningRef.current = false;
+        animRef.current = null;
+        return;
+      }
+
+      animRef.current = requestAnimationFrame(tick);
+    };
+
+    animRef.current = requestAnimationFrame(tick);
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
 
     const resize = () => {
       if (!canvas.parentElement) return;
       const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      if (rect.width > 0 && rect.height > 0) {
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+      }
     };
     resize();
-    window.addEventListener("resize", resize);
-
-    const updatePhysics = () => {
-      const cur = currentRef.current;
-      const tar = targetRef.current;
-
-      // Spring lerping for tactile silk-paper response
-      cur.x += (tar.x - cur.x) * 0.12;
-      cur.y += (tar.y - cur.y) * 0.12;
-      cur.depth += (tar.depth - cur.depth) * 0.1;
-
-      // 3D paper bending angle
-      const targetRotX = (cur.y - 0.5) * -7 * cur.depth;
-      const targetRotY = (cur.x - 0.5) * 7 * cur.depth;
-      cur.rotX += (targetRotX - cur.rotX) * 0.12;
-      cur.rotY += (targetRotY - cur.rotY) * 0.12;
-
-      setState(prev => ({
-        ...prev,
-        x: cur.x,
-        y: cur.y,
-        depth: cur.depth,
-        rotX: cur.rotX,
-        rotY: cur.rotY
-      }));
-
-      // Render micro paper tension / deformation rings on canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      if (cur.depth > 0.05) {
-        const px = cur.x * canvas.width;
-        const py = cur.y * canvas.height;
-
-        // Draw soft elastic paper contour ripples
-        const ripples = ripplesRef.current;
-        for (let i = ripples.length - 1; i >= 0; i--) {
-          const r = ripples[i];
-          r.radius += r.speed;
-          r.alpha -= r.fade;
-          if (r.alpha <= 0) {
-            ripples.splice(i, 1);
-            continue;
-          }
-          ctx.save();
-          ctx.beginPath();
-          ctx.ellipse(r.x, r.y, r.radius, r.radius * 0.65, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha * 0.22})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          ctx.restore();
-        }
-
-        // Soft center tension point
-        const grad = ctx.createRadialGradient(px, py, 0, px, py, 140 * cur.depth);
-        grad.addColorStop(0, `rgba(0, 0, 0, ${0.12 * cur.depth})`);
-        grad.addColorStop(0.5, `rgba(0, 0, 0, ${0.04 * cur.depth})`);
-        grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
-
-      animRef.current = requestAnimationFrame(updatePhysics);
-    };
-
-    animRef.current = requestAnimationFrame(updatePhysics);
+    window.addEventListener("resize", resize, { passive: true });
 
     return () => {
       window.removeEventListener("resize", resize);
@@ -119,15 +170,15 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
   const handleMouseMove = (e) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
     const nx = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
     const ny = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
 
     targetRef.current.x = nx;
     targetRef.current.y = ny;
-    targetRef.current.depth = state.isPressed ? 1.6 : 1.0;
+    targetRef.current.depth = isPressedRef.current ? 1.6 : 1.0;
 
-    // Trigger subtle paper tension pulse
-    if (Math.random() > 0.72 && ripplesRef.current.length < 8 && canvasRef.current) {
+    if (Math.random() > 0.75 && ripplesRef.current.length < 5 && canvasRef.current) {
       ripplesRef.current.push({
         x: nx * canvasRef.current.width,
         y: ny * canvasRef.current.height,
@@ -137,24 +188,29 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
         fade: 0.012
       });
     }
+
+    startLoop();
   };
 
   const handleMouseEnter = () => {
-    setState(prev => ({ ...prev, isHovered: true }));
+    isHoveredRef.current = true;
     targetRef.current.depth = 1.0;
+    startLoop();
   };
 
   const handleMouseLeave = () => {
-    setState(prev => ({ ...prev, isHovered: false, isPressed: false }));
+    isHoveredRef.current = false;
+    isPressedRef.current = false;
     targetRef.current.depth = 0;
     targetRef.current.x = 0.5;
     targetRef.current.y = 0.5;
+    startLoop();
   };
 
   const handleMouseDown = () => {
-    setState(prev => ({ ...prev, isPressed: true }));
+    isPressedRef.current = true;
     targetRef.current.depth = 1.7;
-    if (canvasRef.current) {
+    if (canvasRef.current && canvasRef.current.width > 0) {
       ripplesRef.current.push({
         x: currentRef.current.x * canvasRef.current.width,
         y: currentRef.current.y * canvasRef.current.height,
@@ -164,29 +220,31 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
         fade: 0.014
       });
     }
+    startLoop();
   };
 
   const handleMouseUp = () => {
-    setState(prev => ({ ...prev, isPressed: false }));
-    targetRef.current.depth = state.isHovered ? 1.0 : 0;
+    isPressedRef.current = false;
+    targetRef.current.depth = isHoveredRef.current ? 1.0 : 0;
+    startLoop();
   };
 
   const handleTouchMove = (e) => {
     if (!e.touches || !containerRef.current) return;
     const touch = e.touches[0];
     const rect = containerRef.current.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
     const nx = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
     const ny = Math.max(0, Math.min(1, (touch.clientY - rect.top) / rect.height));
     targetRef.current.x = nx;
     targetRef.current.y = ny;
     targetRef.current.depth = 1.2;
+    startLoop();
   };
-
-  const pixelX = state.x * 100;
-  const pixelY = state.y * 100;
 
   return (
     <div 
+      ref={containerRef}
       className={`perspective-[1200px] select-none ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -198,50 +256,43 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
       onTouchEnd={handleMouseUp}
     >
       <div 
-        ref={containerRef}
+        ref={cardRef}
+        className="relative w-full h-full rounded-[32px] sm:rounded-[40px] overflow-hidden bg-[#0A1A12] border border-black/10 sm:border-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(255,255,255,0.4)] cursor-grab active:cursor-grabbing will-change-transform transform-gpu"
         style={{
-          transform: `rotateX(${state.rotX.toFixed(2)}deg) rotateY(${state.rotY.toFixed(2)}deg) translateZ(${(-12 * state.depth).toFixed(1)}px)`,
+          transform: "rotateX(0deg) rotateY(0deg) translateZ(0px)",
           transition: "box-shadow 0.3s ease-out",
         }}
-        className="relative w-full h-full rounded-[32px] sm:rounded-[40px] overflow-hidden bg-[#0A1A12] border border-black/10 sm:border-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(255,255,255,0.4)] cursor-grab active:cursor-grabbing will-change-transform"
       >
         {/* Base Hero Screenshot */}
         <img
+          ref={imgRef}
           src={imageSrc}
           alt={caption || "Hero"}
+          decoding="async"
+          loading="eager"
+          className="w-full h-full object-cover select-none pointer-events-none transform-gpu will-change-transform"
           style={{
-            transform: `scale(${1 - 0.018 * state.depth})`,
-            filter: `brightness(${1 - 0.04 * state.depth})`,
-            transition: "transform 0.15s ease-out, filter 0.15s ease-out"
-          }}
-          className="w-full h-full object-cover select-none pointer-events-none"
-        />
-
-        {/* Soft Indentation Crater (Concave shadow where paper depresses inward) */}
-        <div 
-          className="absolute inset-0 pointer-events-none transition-opacity duration-200"
-          style={{
-            opacity: state.depth > 0.01 ? 1 : 0,
-            background: `radial-gradient(circle 240px at ${pixelX}% ${pixelY}%, rgba(0,0,0,${(0.48 * state.depth).toFixed(3)}) 0%, rgba(0,0,0,${(0.22 * state.depth).toFixed(3)}) 32%, rgba(0,0,0,${(0.04 * state.depth).toFixed(3)}) 60%, transparent 80%)`
+            transform: "scale(1)",
+            filter: "brightness(1)"
           }}
         />
 
-        {/* Paper Specular Light Rim (ambient light bouncing on top curve of depression) */}
+        {/* Soft Indentation Crater */}
         <div 
-          className="absolute inset-0 pointer-events-none transition-opacity duration-200"
-          style={{
-            opacity: state.depth > 0.01 ? 1 : 0,
-            background: `radial-gradient(ellipse 260px 110px at ${pixelX}% ${Math.max(0, pixelY - 4)}%, rgba(255,255,255,${(0.3 * state.depth).toFixed(3)}) 0%, rgba(255,255,255,${(0.08 * state.depth).toFixed(3)}) 35%, transparent 65%)`
-          }}
+          ref={craterRef}
+          className="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-150"
+        />
+
+        {/* Paper Specular Light Rim */}
+        <div 
+          ref={rimRef}
+          className="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-150"
         />
 
         {/* Paper Crease Shadow Below Depressed Center */}
         <div 
-          className="absolute inset-0 pointer-events-none transition-opacity duration-200"
-          style={{
-            opacity: state.depth > 0.01 ? 1 : 0,
-            background: `radial-gradient(ellipse 200px 90px at ${pixelX}% ${Math.min(100, pixelY + 4)}%, rgba(0,0,0,${(0.38 * state.depth).toFixed(3)}) 0%, transparent 65%)`
-          }}
+          ref={creaseRef}
+          className="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-150"
         />
 
         {/* Micro Deformation Canvas */}
@@ -256,12 +307,12 @@ function SoftPaperPressHero({ className, imageSrc, caption }) {
         {/* Hero Interactive Status Badge */}
         <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
           <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/20 text-white font-mono text-xs flex items-center gap-2 shadow-md">
-            <span className={`w-2 h-2 rounded-full transition-colors duration-300 ${state.depth > 0.1 ? "bg-emerald-300 scale-125" : "bg-emerald-400 animate-pulse"}`} />
+            <span ref={badgeDotRef} className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>{caption}</span>
           </div>
 
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/80 font-mono text-[10px] uppercase tracking-wider">
-            <span>{state.isPressed ? "М'який папір · Втиснуто" : state.isHovered ? "М'який папір · Натисніть" : "Тактильний папір"}</span>
+            <span ref={badgeTextRef}>Тактильний папір</span>
           </div>
         </div>
       </div>
@@ -812,13 +863,14 @@ export default function ProjectModal({ projectId, lang = "ua", onClose, onSelect
                   <div
                     key={idx}
                     onClick={() => setSelectedPhotoIndex(idx)}
-                    className="group relative aspect-[16/11] rounded-[28px] overflow-hidden bg-black/5 border border-black/[0.05] shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] hover:border-black/[0.15] transition-all duration-300 cursor-pointer"
+                    className="group relative aspect-[16/11] rounded-[28px] overflow-hidden bg-black/5 border border-black/[0.05] shadow-[0_6px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] hover:border-black/[0.15] transition-all duration-300 cursor-pointer transform-gpu"
                   >
                     <img
                       src={item.url}
                       alt={item.caption}
-                      className="w-full h-full object-cover group-hover:scale-[1.035] transition-transform duration-500 ease-out"
+                      className="w-full h-full object-cover group-hover:scale-[1.035] transition-transform duration-500 ease-out transform-gpu will-change-transform"
                       loading="lazy"
+                      decoding="async"
                     />
                     
                     {/* Subtle Frosted Bottom Capsule on Hover */}

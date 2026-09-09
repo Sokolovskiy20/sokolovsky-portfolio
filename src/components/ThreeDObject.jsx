@@ -11,8 +11,13 @@ import React, { useEffect, useRef } from 'react';
  * 4. ResizeObserver & Context Resilience: Prevents 0-pixel canvas bugs on mobile orientation changes or app switching.
  * 5. IntersectionObserver: Pauses WebGL render loop when scrolled offscreen.
  */
-export default function ThreeDObject({ className = "" }) {
+export default function ThreeDObject({ className = "", paused = false }) {
   const canvasRef = useRef(null);
+  const pausedRef = useRef(paused);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -320,7 +325,10 @@ export default function ThreeDObject({ className = "" }) {
     resize();
 
     const render = () => {
-      if (!isVisible) return;
+      if (!isVisible || pausedRef.current) {
+        animationFrameId = null;
+        return;
+      }
 
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
@@ -337,11 +345,17 @@ export default function ThreeDObject({ className = "" }) {
       animationFrameId = requestAnimationFrame(render);
     };
 
+    const resumeIfActive = () => {
+      if (isVisible && !pausedRef.current && !animationFrameId) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
     // IntersectionObserver: automatically stop rendering when off-screen to prevent any lag!
     const observer = new IntersectionObserver((entries) => {
       const [entry] = entries;
       isVisible = entry.isIntersecting;
-      if (isVisible) {
+      if (isVisible && !pausedRef.current) {
         if (!animationFrameId) {
           startTime = performance.now();
           animationFrameId = requestAnimationFrame(render);
@@ -356,10 +370,20 @@ export default function ThreeDObject({ className = "" }) {
 
     observer.observe(canvas);
 
+    // Watch paused changes
+    const checkPausedInterval = setInterval(() => {
+      if (!pausedRef.current && isVisible && !animationFrameId) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    }, 200);
+
     // Initial trigger
-    animationFrameId = requestAnimationFrame(render);
+    if (!pausedRef.current) {
+      animationFrameId = requestAnimationFrame(render);
+    }
 
     return () => {
+      clearInterval(checkPausedInterval);
       if (resizeObserver) resizeObserver.disconnect();
       observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);

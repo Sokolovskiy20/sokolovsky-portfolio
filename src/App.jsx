@@ -176,6 +176,7 @@ export default function App() {
         <HomePage 
           lang={lang} 
           onSelectProject={handleSelectProject}
+          isModalOpen={!!selectedProjectId}
         />
       </main>
 

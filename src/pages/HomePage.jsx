@@ -15,7 +15,7 @@ import {
   AntigravityIcon
 } from "../components/TechIcons";
 
-export default function HomePage({ lang = "ua", onSelectProject }) {
+export default function HomePage({ lang = "ua", onSelectProject, isModalOpen = false }) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedTg, setCopiedTg] = useState(false);
 
@@ -358,9 +358,9 @@ export default function HomePage({ lang = "ua", onSelectProject }) {
           {/* Ambient Studio Halo */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[700px] md:w-[1000px] h-[320px] sm:h-[550px] md:h-[800px] bg-gradient-to-b from-[#E2D4B7]/[0.18] via-white/[0.04] to-transparent rounded-full blur-3xl mix-blend-screen" />
 
-          {/* Real-Time Interactive 3D WebGL Gem */}
+          {/* Real-Time Interactive 3D WebGL Gem (auto-pauses when modal is active) */}
           <div className="w-full h-full max-w-[1400px] max-h-[900px] flex items-center justify-center">
-            <ThreeDObject className="w-full h-full" />
+            <ThreeDObject className="w-full h-full" paused={isModalOpen} />
           </div>
 
           {/* Luxury Film Grain */}

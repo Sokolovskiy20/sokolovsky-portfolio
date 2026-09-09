@@ -114,7 +114,7 @@ export default function CustomCursor() {
       {/* Outer subtle aura */}
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 pointer-events-none z-50 rounded-full border border-white/20 opacity-0 transition-opacity duration-300 transform-gpu"
+        className="fixed top-0 left-0 pointer-events-none z-100 rounded-full border border-white/20 opacity-0 transition-opacity duration-300 transform-gpu"
         style={{
           width: '36px',
           height: '36px',
@@ -124,7 +124,7 @@ export default function CustomCursor() {
       {/* Inner dot */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-50 rounded-full bg-white opacity-0 transition-opacity duration-300 transform-gpu"
+        className="fixed top-0 left-0 pointer-events-none z-100 rounded-full bg-white opacity-0 transition-opacity duration-300 transform-gpu"
         style={{
           width: '6px',
           height: '6px',

@@ -136,7 +136,7 @@ export default function ContactSection({ lang, showToast }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Telegram */}
               <a
-                href="https://t.me/artem_sokolovsky"
+                href="https://t.me/sokolovskiy202002"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-6 rounded-3xl glass-panel border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between shadow-xl"

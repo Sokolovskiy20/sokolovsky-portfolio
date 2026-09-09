@@ -4,9 +4,9 @@ import { ArrowUpRight } from 'lucide-react';
 
 /**
  * CinematicProjectRow — Full-bleed / Panoramic Cinematic Case Study Row
- * Mobile-First Redesign:
- * - Mobile: Visual-first immersive experience with enlarged 16/10 aspect ratio, overlay title & minimal clean tags.
- * - Desktop: Full 12-column editorial panoramic layout with complete narratives and tech stack.
+ * Mobile-First:
+ * - Mobile: Visual-first immersive experience with enlarged 16/10 aspect ratio, left-aligned title & clean tags.
+ * - Unified typography across all screen sizes.
  */
 export default function CinematicProjectRow({
   id,
@@ -33,15 +33,12 @@ export default function CinematicProjectRow({
     offset: ["start end", "end start"]
   });
 
-  // Scale from 1.08 down to 1.0 as section moves into view
+  // Scale from 1.06 down to 1.0 as section moves into view
   const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1.0, 1.02]);
   const smoothScale = useSpring(rawScale, { stiffness: 100, damping: 30 });
 
   const handleClick = (e) => {
-    if (liveUrl) {
-      e.stopPropagation();
-      window.open(liveUrl, '_blank', 'noopener,noreferrer');
-    } else if (onClick) {
+    if (onClick) {
       onClick(id);
     }
   };
@@ -61,7 +58,7 @@ export default function CinematicProjectRow({
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative w-full cursor-pointer py-5 sm:py-16 border-t border-white/[0.08] first:border-t-0 transform-gpu"
+      className="group relative w-full cursor-pointer py-4 sm:py-16 border-t border-white/[0.08] first:border-t-0 transform-gpu text-left"
     >
       {/* ========================================================================= */}
       {/* 📱 MOBILE VIEW: IMMERSIVE VISUAL PHOTO-CARD (< lg)                         */}
@@ -85,29 +82,26 @@ export default function CinematicProjectRow({
           <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
             <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/12 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_8px_#E2D4B7]" />
-              <span className="font-mono text-[9px] tracking-wider uppercase text-white/90 font-medium">
+              <span className="font-sans text-[10px] tracking-wider uppercase text-white/90 font-medium">
                 {categoryBadge}
               </span>
             </div>
 
-            <div className="px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 font-mono text-[10px] text-white/70">
+            <div className="px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 font-sans text-[11px] text-white/70 font-medium">
               {year}
             </div>
           </div>
 
-          {/* Bottom Overlay: Title, Subtitle, Direct Tap Button */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 z-10 flex items-end justify-between gap-3">
-            <div className="space-y-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-[10px] text-[#E2D4B7] font-semibold tracking-widest">
-                  {number} // 03
-                </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/50 truncate">
+          {/* Bottom Overlay: Title, Subtitle, Direct Tap Button (Left Aligned) */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 z-10 flex items-end justify-between gap-3 text-left">
+            <div className="space-y-1 min-w-0 text-left">
+              <div className="flex items-center gap-2 text-left">
+                <span className="font-sans text-[10px] uppercase tracking-[0.14em] text-[#E2D4B7] truncate font-medium">
                   {subtitle}
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-light text-white tracking-[-0.02em] leading-tight drop-shadow-md truncate">
+              <h3 className="text-2xl sm:text-3xl font-light text-white tracking-[-0.02em] leading-tight drop-shadow-md truncate text-left font-sans">
                 {title}
               </h3>
             </div>
@@ -159,13 +153,13 @@ export default function CinematicProjectRow({
             {/* Floating Top Category Pill inside Image */}
             <div className="absolute top-6 left-6 z-10 flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 shadow-lg">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E2D4B7] shadow-[0_0_8px_#E2D4B7]" />
-              <span className="font-mono text-xs tracking-wider uppercase text-white/90 font-medium">
+              <span className="font-sans text-xs tracking-wider uppercase text-white/90 font-medium">
                 {categoryBadge}
               </span>
             </div>
 
             {/* Floating Year Pill inside Image */}
-            <div className="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10 font-mono text-xs text-white/60">
+            <div className="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10 font-sans text-xs text-white/60 font-medium">
               {year}
             </div>
 
@@ -180,41 +174,33 @@ export default function CinematicProjectRow({
         </div>
 
         {/* SIDE TYPOGRAPHY COLUMN (4 of 12 cols on desktop) */}
-        <div className={`col-span-4 flex flex-col justify-between space-y-6 ${
+        <div className={`col-span-4 flex flex-col justify-between space-y-6 text-left ${
           reversed ? 'col-start-1 row-start-1' : ''
         }`}>
           
-          <div className="space-y-4">
+          <div className="space-y-4 text-left">
             
-            {/* Number Index */}
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs text-[#E2D4B7] tracking-[0.2em] font-semibold">
-                {number} // 03
-              </span>
-              <div className="h-px w-8 bg-white/20" />
-            </div>
-
             {/* Project Title */}
-            <h3 className="text-4xl md:text-5xl font-light text-white tracking-[-0.02em] group-hover:text-[#E2D4B7] transition-colors leading-[1.1]">
+            <h3 className="text-4xl md:text-5xl font-light text-white tracking-[-0.02em] group-hover:text-[#E2D4B7] transition-colors leading-[1.1] font-sans text-left">
               {title}
             </h3>
 
             {/* Subtitle / Scope */}
-            <span className="block font-mono text-xs uppercase tracking-[0.18em] text-white/50">
+            <span className="block font-sans text-xs uppercase tracking-[0.18em] text-white/50 text-left font-medium">
               {subtitle}
             </span>
 
             {/* Balanced Editorial Description */}
-            <p className="text-base text-white/70 font-light leading-[1.65] pt-1">
+            <p className="text-base text-white/70 font-light leading-[1.65] pt-1 text-left font-sans">
               {description}
             </p>
 
             {/* Tech Stack Pills */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2 pt-2 text-left">
               {tags.map((tag, tIdx) => (
                 <span
                   key={tIdx}
-                  className="px-2.5 py-1 rounded-full text-[11px] font-mono tracking-wider bg-white/[0.03] border border-white/[0.06] text-white/60 group-hover:border-white/[0.12] transition-colors"
+                  className="px-2.5 py-1 rounded-full text-[11px] font-sans tracking-wider bg-white/[0.03] border border-white/[0.06] text-white/60 group-hover:border-white/[0.12] transition-colors font-medium"
                 >
                   {tag}
                 </span>
@@ -224,8 +210,8 @@ export default function CinematicProjectRow({
           </div>
 
           {/* Action Button */}
-          <div className="pt-2">
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.04] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.12] group-hover:border-[#E2D4B7] text-white transition-all duration-300 font-mono text-xs tracking-[0.18em] uppercase font-medium shadow-md">
+          <div className="pt-2 text-left">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.04] group-hover:bg-[#E2D4B7] group-hover:text-black border border-white/[0.12] group-hover:border-[#E2D4B7] text-white transition-all duration-300 font-sans text-xs tracking-[0.18em] uppercase font-medium shadow-md">
               <span>{viewText}</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>

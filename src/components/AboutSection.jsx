@@ -46,7 +46,7 @@ export default function AboutSection({ lang, onOpenContact }) {
                 Artem Sokolovsky
               </h3>
               <p className="text-xs font-mono text-[#CBB280] tracking-wider uppercase mb-4">
-                Web Designer & AI Developer
+                AI Web Designer & Frontend Developer
               </p>
 
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">

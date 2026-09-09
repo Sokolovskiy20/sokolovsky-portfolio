@@ -63,7 +63,7 @@ export default function Hero({ lang, onSelectProject, onOpenContact }) {
               Artem Sokolovsky
             </span>
             <span className="block text-xl sm:text-3xl md:text-4xl font-display-luxury font-light tracking-widest text-[#CBB280] mt-3 uppercase">
-              Web Designer & AI Developer
+              AI Web Designer & Frontend Developer
             </span>
           </h1>
 
@@ -114,7 +114,7 @@ export default function Hero({ lang, onSelectProject, onOpenContact }) {
                 ✦
               </span>
               <span className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-serif-luxury italic font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-[#CBB280]">
-                Web Designer & AI Developer
+                AI Web Designer & Frontend Developer
               </span>
               <span className="text-2xl sm:text-5xl text-[#CBB280] font-serif-luxury italic">
                 ✦
